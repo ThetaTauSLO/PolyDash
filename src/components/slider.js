@@ -5,10 +5,11 @@ import styled from "styled-components"
 
 import '../../node_modules/slick-carousel/slick/slick.css';
 import '../../node_modules/slick-carousel/slick/slick-theme.css';
+import background from "../assets/images/campus_above.jpg"
 
 const SliderContainer = styled.div`
   // background: linear-gradient(210deg,#943cff 0%,#dd45d3 40.13%,#fc9a57 90%);
-  background-image: url(images/campus_above.jpg);
+  background-image: url(${background});
   color: white;
   padding: 25rem 0;
   // clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
