@@ -1,0 +1,11 @@
+[
+  {"name": "Home", "url": "/"},
+  {"name": "About", "url": "/about"},
+  {"_name": "Options", "url": "", "dropdownItems": [
+    {"_name": "Option 1", "url": "/test"},
+    {"_name": "Option 2", "url": "/test"},
+    {"_name": "Reset", "url": "/test"}
+  ]},
+  {"_name": "GitHub", "url": ""},
+  {"_name": "Contact", "url": "/contact"}
+]
