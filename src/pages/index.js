@@ -48,14 +48,14 @@ let Index = () => (
         <Service title="TBA" Icon={FaWrench}/>
       </Row>
     </Container>
-    <div className="text-center py-5">
+    {/* <div className="text-center py-5">
       <Button to="https://github.com/EnumC/CalPolyHKN" className="btn btn-primary btn-lg">
         <FaGithub className="mr-1"/>
         View on Github
       </Button>
-    </div>
+    </div> */}
     <StyledBackground>
-      <Benefits/>
+      {/* <Benefits/> */}
       <div className="py-5">
         <Container>
           <Row className="d-flex justify-content-center">

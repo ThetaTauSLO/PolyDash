@@ -1,10 +1,11 @@
 [
   {"name": "Home", "url": "/"},
   {"name": "About", "url": "/about"},
-  {"_name": "Options", "url": "", "dropdownItems": [
-    {"_name": "Option 1", "url": "/test"},
-    {"_name": "Option 2", "url": "/test"},
-    {"_name": "Reset", "url": "/test"}
+  {"name": "Team", "url": "/team"},
+  {"name": "Settings", "url": "", "dropdownItems": [
+    {"name": "Dark Mode", "url": "#"},
+    {"name": "Reload", "url": "#"},
+    {"name": "Reset", "url": "#"}
   ]},
   {"_name": "GitHub", "url": ""},
   {"_name": "Contact", "url": "/contact"}

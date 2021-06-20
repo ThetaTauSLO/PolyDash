@@ -1,4 +1,4 @@
-$gradient: linear-gradient(210deg,#943cff 0%,#dd45d3 40.13%,#fc9a57 90%);
+$gradient: linear-gradient(210deg, #943cff 0%, #dd45d3 40.13%, #fc9a57 90%);
 
 // Bootstrap Custom Variables here
 
@@ -47,7 +47,8 @@ $gradient: linear-gradient(210deg,#943cff 0%,#dd45d3 40.13%,#fc9a57 90%);
   font-family: "HKGrotesk";
   font-style: normal;
   font-weight: 300;
-  src: url('../fonts/HKGrotesk-Bold.woff2') format("woff2"), url('../fonts/HKGrotesk-Bold.woff') format("woff");;
+  src: url('../fonts/HKGrotesk-Bold.woff2') format("woff2"), url('../fonts/HKGrotesk-Bold.woff') format("woff");
+  ;
   font-display: swap;
 }
 
@@ -55,7 +56,8 @@ $gradient: linear-gradient(210deg,#943cff 0%,#dd45d3 40.13%,#fc9a57 90%);
   font-family: "HKGrotesk";
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/HKGrotesk-ExtraBold.woff2') format("woff2"), url('../fonts/HKGrotesk-ExtraBold.woff') format("woff");;
+  src: url('../fonts/HKGrotesk-ExtraBold.woff2') format("woff2"), url('../fonts/HKGrotesk-ExtraBold.woff') format("woff");
+  ;
   font-display: swap;
 }
 
@@ -71,6 +73,7 @@ h1 {
 
 p {
   font-family: 'Roboto', sans-serif;
+
   .text-muted {
     color: #869ab8;
   }
@@ -79,4 +82,11 @@ p {
 .bg-primary-faded {
   color: $primary;
   background-color: rgba(red($primary), green($primary), blue($primary), 0.2);
+}
+
+.team-photo {
+  border-radius: 50%;
+  height: 10vw;
+  width: 10vw;
+  object-fit: cover;
 }

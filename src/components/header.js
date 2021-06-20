@@ -17,16 +17,21 @@ let StyledNavbar = styled(props => <Navbar {...props}/>)`
   z-index: 10;
 `
 
-const Header = (props) => {
+const Header = ({ title }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
   return (
     <StyledNavbar color="light" light expand="md">
       <Container>
+        {/* <Link to="/" className="navbar-brand"> */}
+          {/* <img src={logo} alt="Logo" height="25px"/> */}
+          {/* {siteTitle} */}
+        {/* </Link> */}
         <Link to="/" className="navbar-brand">
-          <img src={logo} alt="Logo" height="25px"/>
+          <span className="d-none d-sm-inline font-weight-bold">
+            {title}
+          </span>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
