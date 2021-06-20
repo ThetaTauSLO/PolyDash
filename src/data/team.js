@@ -42,7 +42,7 @@ const TeamInfo = [
         links: {
             FaEnvelope: "mailto:eric@enumc.com"
         },
-        bio: "Hummus",
+        bio: "Currently employed as a full time magic smoke generator in a parallel universe. In the real world, I'm studying Computer Engineering & breaking builds at Samsung R&D. Have a furry Shiba Inu named Kevin.",
     },
     {
         name: "Hetav Gore",
