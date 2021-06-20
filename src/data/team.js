@@ -1,7 +1,7 @@
 const TeamInfo = [
     {
         name: "Fadi Alzammar",
-        photo: "fadialzammar.JPG",
+        photo: "/team/fadialzammar.JPG",
         position: "President",
         links: {
             FaEnvelope: "mailto:falzamma@calpoly.edu"
@@ -10,7 +10,7 @@ const TeamInfo = [
     },
     {
         name: "Kaylyn Tran",
-        photo: "kaylyntran.jpg",
+        photo: "/team/kaylyntran.jpg",
         position: "Publicity Chair",
         links: {
             FaEnvelope: "mailto:ktran187@calpoly.edu"
@@ -19,7 +19,7 @@ const TeamInfo = [
     },
     {
         name: "Alaina Fua",
-        photo: "alainafua.jpg",
+        photo: "/team/alainafua.jpg",
         position: "Vice President",
         links: {
             FaEnvelope: "mailto:afua@calpoly.edu"
@@ -28,7 +28,7 @@ const TeamInfo = [
     }, 
     {
         name: "Aaron Teh",
-        photo: "aaronteh.jpg",
+        photo: "/team/aaronteh.jpg",
         position: "Treasurer",
         links: {
             FaEnvelope: "mailto:ajteh@calpoly.edu "
@@ -46,7 +46,7 @@ const TeamInfo = [
     },
     {
         name: "Hetav Gore",
-        photo: "HetavGore.jpg",
+        photo: "/team/HetavGore.jpg",
         position: "Corresponding Secretary",
         links: {
             FaEnvelope: "mailto:hgore@calpoly.edu"
@@ -55,7 +55,7 @@ const TeamInfo = [
     },
     {
         name: "Jeffrey Wexler",
-        photo: "JeffreyWexler.jpg",
+        photo: "/team/JeffreyWexler.jpg",
         position: "Recording Secretary",
         links: {
             FaEnvelope: "mailto:jawexler@calpoly.edu"
