@@ -1,0 +1,43 @@
+<!--
+     Before implementing this jekyll snippet make sure
+     1. you have signed up with Mailchimp.
+     2. you have created a list in Mailchimp.
+     3. you have defined the list in _config.yml,
+     for ex: "mailchimp-list: //redgadgets.us10.list-manage.com/subscribe/post?u=210acce5db69d3d4a04b0e25d&amp;id=08c6708f40"
+-->
+
+<form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate">
+    <div class="mc-field-group">
+      <input type="text" placeholder="Full Name" name="NAME" class="required name" id="mce-NAME" autocomplete="on">
+      <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on">
+      <input type="submit" value="Subscribe" name="subscribe" class="heart">
+    </div>
+</form>
+<p id="success-message" style="color: green; display: none;"><strong>You have successfully enrolled in the HKN mailing list!</strong></p>
+<p id="fail-message" style="color: orange; display: none; margin-bottom:0rem;"><strong>We encountered an error while attempting to enroll: </strong></p>
+<p id="fail-message-description" style="color: orange; display: none;"></p>
+<script>{% include subscribe.js %}</script>
+<style>
+    .wj-contact-form input {
+        vertical-align: middle;
+        margin-top: 0.25em;
+        margin-bottom: 0.5em;
+        padding: 0.75em;
+        font-family: monospace, sans-serif;
+        border:1px solid #444;
+        outline-color: #2e83e6;
+        border-radius: 3px;
+        transition: box-shadow .2s ease;
+        background-color:grey;
+        color: #eee;
+    }
+    .wj-contact-form input::placeholder {
+        color: #eee;
+    }
+
+    .wj-contact-form input[type="submit"] {
+        background-color: #2e83e6;
+        border: 1px solid #2e83e6;;
+        color: #eee;
+    }
+</style>

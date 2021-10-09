@@ -1,18 +1,7 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  IEEE HKN Epsilon Phi
-</h1>
+# Cal Poly HKN Official Site Repo
 
-Contributor:
+Maintained by Eric Qian
 
-## 🚀 Quick start
+Jekyll & Chirpy
 
-```
-git clone
-gatsby develop
-```
+More info coming soon!
