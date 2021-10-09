@@ -7,8 +7,8 @@ let Form = () => (
     <input type="hidden" name="form-name" value="Contact Form"/>
     <NormalField name="Full Name"/>
     <NormalField name="Email"/>
-    <NormalField name="Phone Number"/>
-    <NormalField name="Comments" type="textarea"/>
+    {/* <NormalField name="Phone Number" required={false} /> */}
+    {/* <NormalField name="Message" type="textarea" required={false} /> */}
     <Button type="submit">Submit</Button>
   </form>
 )

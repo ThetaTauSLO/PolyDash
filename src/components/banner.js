@@ -7,8 +7,8 @@ const NumberFormat = require('react-number-format');
 let Banner = ({
   title,
   phone,
-  facebook_url = null,
-  instagram_url = null,
+  facebook_url = "https://www.facebook.com/Cal-Poly-HKN-342680813679270/",
+  instagram_url = "https://www.instagram.com/calpolyhkn/",
   address
 }) => {
   const phone_url = 'tel:' + phone.replace(/ /g, '')

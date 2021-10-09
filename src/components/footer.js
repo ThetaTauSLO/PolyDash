@@ -24,8 +24,8 @@ const FooterStyling = styled.footer`
   }
 `
 
-let SocialLink = ({Icon}) => (
-  <Link to="/" className="mr-2">
+let SocialLink = ({href, Icon}) => (
+  <Link to={href} className="mr-2">
     <Icon size={30}/>
   </Link>
 )
@@ -38,7 +38,10 @@ let FooterLink = ({to, children}) => (
   </li>
 )
 
-let Footer = () => (
+let Footer = ({
+  facebook_url = "https://www.facebook.com/Cal-Poly-HKN-342680813679270/",
+  instagram_url = "https://www.instagram.com/calpolyhkn/"
+}) => (
   <FooterStyling>
     <Container>
       <Row>
@@ -53,9 +56,9 @@ let Footer = () => (
           </Col>
         ))}
         <Col xs={12} md={3}>
-          <h5>Contact Us</h5>
-          <SocialLink Icon={FaFacebookSquare}/>
-          <SocialLink Icon={FaInstagram}/>
+          <h5>Follow Us On Social Media!</h5>
+          <SocialLink Icon={FaFacebookSquare} href={facebook_url}/>
+          <SocialLink Icon={FaInstagram} href={instagram_url}/>
         </Col>
       </Row>
     </Container>
