@@ -2,7 +2,7 @@
 title: Getting Started
 author: Cotes Chung
 date: 2019-08-09 20:55:00 +0800
-categories: [Blogging, Tutorial]
+categories: [Event, Spring Quarter]
 tags: [getting started]
 pin: true
 ---

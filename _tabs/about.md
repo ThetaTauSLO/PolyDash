@@ -10,10 +10,12 @@ order: 4
 # Welcome to HKN!
 IEEE-Eta Kappa Nu (HKN) is the student honor society under IEEE dedicated to encouraging and acknowledging excellence in the fields of Electrical Engineering, Computer Engineering and other IEEE fields of interest. The organization offers a variety of service programs and leadership training to help student members develop lifelong skills that differentiate them from others seeking prominent positions in industry and academia.
 
+![Campus View](/assets/img/campus_above.jpg)
+
 The Epsilon Phi branch at Cal Poly currently host company workshops, social, and professional development events.
 
 ###### To learn more, you can sign up for our newsletter below:
 
 {% include subscribe-form.html %}
 
-![Campus View](campus_above.jpg)
+

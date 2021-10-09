@@ -14,7 +14,7 @@ layout: page
     {% for item in site[collection.label] %}
     <!-- <li><a href="{{ item.url }}">{{ item.url }}</a></li> -->
     {% if item.url == '/about/' %}
-      {{item.content}}
+      {% include refactor-content.html content=item.content %}
     {% endif %}
 
     {% endfor %}
@@ -23,3 +23,7 @@ layout: page
 
 {% endfor %}
 
+
+{% include js-selector.html %}
+{% include css-selector.html %}
+<!-- <script defer src="/assets/js/dist/page.min.js"></script> -->
