@@ -14,7 +14,7 @@ IEEE-Eta Kappa Nu (HKN) is the student honor society under IEEE dedicated to enc
 
 The Epsilon Phi branch at Cal Poly currently host company workshops, social, and professional development events.
 
-###### To learn more, you can sign up for our newsletter below:
+###### **If you are not a current member and would like to learn more about our events, please sign up using the form below:**
 
 {% include subscribe-form.html %}
 
