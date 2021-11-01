@@ -1,6 +1,3 @@
-$()
-
-
 $(document).ready(function() {
   let $form = $(".wj-contact-form");
   console.log("HKN subscribe module loaded.", $form);
@@ -8,11 +5,10 @@ $(document).ready(function() {
   if ($form.length > 0) {
     $('form input[type="submit"]').bind('click', function (event) {
       if (event) event.preventDefault();
-      // validate_input() is a validation function I wrote, you'll have to substitute this with your own.
       if (validate_input($form)) { register($form); }
     });
   }
-})
+});
 
 function register($form) {
   $.ajax({
@@ -23,7 +19,6 @@ function register($form) {
     dataType: 'jsonp',
     contentType: "application/json; charset=utf-8",
     error: function (err) {
-      // $("#fail-message").show();
       $("#fail-message-description").text("Cannot connect to subscription server. Please try again later!");
       $("#fail-message-description").show();
     },
