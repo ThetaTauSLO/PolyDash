@@ -11,6 +11,7 @@ $(document).ready(function() {
 });
 
 function register($form) {
+  $('.wj-contact-form input[type="submit"]').prop('disabled', true);
   $.ajax({
     type: $form.attr('method'),
     url: $form.attr('action'),
@@ -21,6 +22,7 @@ function register($form) {
     error: function (err) {
       $("#fail-message-description").text("Cannot connect to subscription server. Please try again later!");
       $("#fail-message-description").show();
+      $('.wj-contact-form input[type="submit"]').prop('disabled', false);
     },
     success: function (data) {
       if (data.result != "success") {
@@ -30,8 +32,10 @@ function register($form) {
         $("#fail-message-description").hide();
         $("#success-message").show();
       }
+      $('.wj-contact-form input[type="submit"]').prop('disabled', false);
     }
   });
+  
 }
 
 function validate_input($form) {

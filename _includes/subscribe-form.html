@@ -30,6 +30,7 @@
         transition: box-shadow .2s ease;
         background-color:grey;
         color: #eee;
+        cursor:default;
     }
     .wj-contact-form input::placeholder {
         color: #eee;
@@ -39,5 +40,22 @@
         background-color: #2e83e6;
         border: 1px solid #2e83e6;;
         color: #eee;
+        transition: 0.3s;
+        
+    }
+
+    .wj-contact-form input[type="submit"]:hover {
+        background-color: #1f5491;
+        border: 1px solid #2e83e6;;
+        color: #eee;
+        cursor: pointer;
+    }
+
+    .wj-contact-form input[type="submit"]:disabled,
+    .wj-contact-form input[type="submit"][disabled]{
+        background-color: #5a5b5c;
+        border: 1px solid #2e83e6;;
+        color: #eee;
+        cursor: wait;
     }
 </style>
