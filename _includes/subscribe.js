@@ -20,7 +20,7 @@ function register($form) {
     url: $form.attr('action'),
     data: $form.serialize(),
     cache: false,
-    dataType: 'json',
+    dataType: 'jsonp',
     contentType: "application/json; charset=utf-8",
     error: function (err) {
       // $("#fail-message").show();
@@ -29,10 +29,11 @@ function register($form) {
     },
     success: function (data) {
       if (data.result != "success") {
-        // $("#fail-message").show();
-      } else {
-        $("#fail-message-description").text(data.message);
+        $("#fail-message-description").html(data.msg);
         $("#fail-message-description").show();
+      } else {
+        $("#fail-message-description").hide();
+        $("#success-message").show();
       }
     }
   });
