@@ -1,32 +1,50 @@
 {
-  "name": "calpolyhkn",
-  "version": "4.3.1",
-  "description": "The official site for Cal Poly HKN - Epsilon Phi Delta.",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
+  "name": "calpolyhkn-portal",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0-rc.0",
+    "@mui/styles": "^5.0.0",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.2",
+    "firebase": "^8.3.3",
+    "firebase-functions": "^3.13.2",
+    "firebaseui": "^4.8.0",
+    "node-sass": "^6.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-firebaseui": "^5.0.0-canary1",
+    "react-jsx-parser": "^1.28.4",
+    "react-pdf": "^5.5.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bundle exec jekyll serve",
-    "build": "JEKYLL_ENV=production bundle exec jekyll b"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "function": "cd functions && npm install && firebase deploy --only functions"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EnumC/CalPolyHKN.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "author": "Cotes Chung",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/EnumC/CalPolyHKN/issues"
-  },
-  "homepage": "https://github.com/EnumC/CalPolyHKN",
-  "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-insert": "^0.5.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2",
-    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
