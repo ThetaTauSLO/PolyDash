@@ -1,7 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const stripeConfig = require('./stripe.json');
-const crypto = require('crypto');
+
+ crypto = require('crypto');
 const Mailgun = require('mailgun-js');
 const mailGunConfig = require('./mailgun.json');
 const config = require('./config.json');

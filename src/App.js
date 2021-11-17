@@ -26,7 +26,6 @@ import NewAccount from './pages/auth/accounts/NewAccount';
 
 
 // load stripe
-import { stripeConfig } from "./inc/stripe.json";
 import { Elements } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import Overview from './pages/auth/accounts/Overview';
@@ -40,6 +39,8 @@ import DeleteAccount from './pages/auth/accounts/DeleteAccount';
 import ImageList from './pages/auth/accounts/images/ImageList';
 import ImageCreate from './pages/auth/accounts/images/ImageCreate';
 import ImageEdit from './pages/auth/accounts/images/ImageEdit';
+const stripeConfig = JSON.parse(process.env.REACT_APP_STRIPE).stripeConfig;
+
 const stripePromise = loadStripe(stripeConfig.public_api_key);
 
 

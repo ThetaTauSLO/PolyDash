@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import 'firebase/firestore';
 import "firebase/auth";
 import "firebase/functions";
-import {config} from '../../inc/firebase.json';
+const config = JSON.parse(process.env.REACT_APP_FIREBASE);
 
 const FirebaseAuth = firebase.initializeApp(config);
 const Firestore = FirebaseAuth.firestore();
