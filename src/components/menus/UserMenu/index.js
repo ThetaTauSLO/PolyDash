@@ -6,8 +6,13 @@ import { IconButton, Menu, MenuItem, Avatar, Divider } from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import MicrosoftAuth from "../../MicrosoftAuth";
+
 
 const UserMenu = () => {
+    // const authe = MicrosoftAuth();
+
+    // console.log("signedIn Microsoft auth: ", isSignedIn);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleMenu = (event) => {
@@ -30,7 +35,7 @@ const UserMenu = () => {
                     onClick={handleMenu}
                     color="inherit"
                 >
-                    <Avatar alt={context.authUser.user.displayName} src={context.authUser.user.photoURL} />
+                    <Avatar alt={context.authUser.user.displayName} src={context.userData.photoURL} />
                 </IconButton>
                 <Menu
                     id="menu-appbar"

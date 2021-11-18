@@ -58,13 +58,14 @@ export const userUpdateName = () => {
     },{merge: true});
     log(UPDATE_USERNAME);
 }
-export const userUpdateResume = (newResumeURL) => {
+export const userUpdateResume = (newResumeURL, newResumeID) => {
     const Firestore = FirebaseAuth.firestore();
     const currentUser = FirebaseAuth.auth().currentUser;
 
     const userDocRef = Firestore.collection('users').doc(currentUser.uid);
     userDocRef.set({
-        resumeURL: newResumeURL
+        resumeURL: newResumeURL,
+        resumeID: newResumeID
     },{merge: true});
     log(UPDATE_RESUME);
 }

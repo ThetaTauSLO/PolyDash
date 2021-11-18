@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from '../../FirebaseAuth';
 import { Avatar, Button, IconButton, Box, Divider, Grid, List, ListItem, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,14 +7,17 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { useHistory } from "react-router-dom";
 import { userGetResume } from '../../../libs/user/';
 import { Document, Page, pdfjs } from 'react-pdf'
+import { Person, Login, MgtFileList } from '@microsoft/mgt-react';
+import { getAccessToken, getPreviewEmbed } from '../../MicrosoftAuth/graph';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 const UserProfileView = () => {
     const history = useHistory();
 
     const [resumeURL, setResumeURL] = useState(null);
+    const [resumePreviewURL, setResumePreviewURL] = useState(null);
     const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+    const [pageNumber, setPageNumber] = useState(1);
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     setPageNumber(1);
@@ -34,6 +37,7 @@ const UserProfileView = () => {
         async function checkResumeURL() {
             const doc = await userGetResume();
             let data;
+            let id;
             if (doc.exists && (doc.data()['resumeURL'] !== "" && doc.data()['resumeURL'] !== undefined)) {
                 console.log("Found resume:",  doc.data()['resumeURL']);
                 data = doc.data()['resumeURL'];
@@ -43,9 +47,28 @@ const UserProfileView = () => {
             }
             setResumeURL(data);
             console.log("Got resume url:", data);
+
+            if (doc.exists && (doc.data()['resumeID'] !== "" && doc.data()['resumeID'] !== undefined)) {
+                console.log("Found resume ID:",  doc.data()['resumeID']);
+                id = doc.data()['resumeID'];
+            } else {
+                // doc.data() will be undefined in this case
+                data = "No Resume Uploaded";
+            }
+            
+            let previewURLResponse = await getPreviewEmbed(getAccessToken(), id);
+            let previewURL;
+            if (previewURLResponse.status === 200 || previewURLResponse.status === 201) {
+                previewURL = previewURLResponse.data.getUrl;
+            }
+            else {
+                previewURL = "";
+            }
+
+            setResumePreviewURL(previewURL);
+            console.log("Got resume url:", data);
         }
         checkResumeURL();
-
     }, []);
 
     return (
@@ -62,7 +85,7 @@ const UserProfileView = () => {
                             </Grid>
                             <Grid container item xs={12} md={4}>
                                 <Box p={2} style={{marginLeft: "auto", marginRight: "0px",}}>
-                                    <Avatar alt={context.authUser.user.displayName} src={context.authUser.user.photoURL} style={{height:'64px',width:'64px'}} />
+                                    <Avatar alt={context.authUser.user.displayName} src={context.userData.photoURL} style={{height:'64px',width:'64px'}} />
                                 </Box>
                             </Grid>
                         </Grid>
@@ -140,6 +163,9 @@ const UserProfileView = () => {
                         </Grid>
                     </ListItem>
                     <Divider />
+                    {/* <Login />
+                    <Person /> */}
+                    
                     <ListItem button onClick={() => {
                         history.push('/user/profile/update-resume');
                     }}>
@@ -150,8 +176,8 @@ const UserProfileView = () => {
                             <Grid container item xs={12} md={4}>
                                 <Box p={2}>{resumeURL}</Box>
                                 <div>
-                                <object data={resumeURL} type="application/pdf" width="100%" height="100%">
-                                    <p>Alternative text - include a link <a href="http://africau.edu/images/default/sample.pdf">to the PDF!</a></p>
+                                <object data={resumePreviewURL} type="application/pdf" width="100%" height="100%">
+                                    <p>Uploaded Resume <a href={resumeURL}></a></p>
                                 </object>
                                     {/* <Document
                                         file={resumeURL}

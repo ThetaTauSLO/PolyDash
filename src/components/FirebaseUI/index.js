@@ -6,6 +6,7 @@ import firebase from "firebase/app";
 import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
 import Logo from "../Logo";
+import { setCookie, getCookie, checkCookie } from "../CookieHelper";
 
 const FirebaseUI = () => {
 
@@ -21,6 +22,16 @@ const FirebaseUI = () => {
     const uiConfig = {
         callbacks: {
             signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                console.log("authResult: " + JSON.stringify(authResult));
+                console.log("redirectUrl: ", redirectUrl);
+                console.log("oauthIdToken: " + authResult.credential.idToken);
+                console.log("oauthAccessToken: " + authResult.credential.accessToken);
+                if (authResult.credential.accessToken !== undefined) {
+                    setCookie("msoauthAccessToken", authResult.credential.accessToken, 365);
+                    setCookie("msoauthIdToken", authResult.credential.idToken, 365);
+                }
+                // debugger;
+                
                 userSignIn((result) => {
                     if(result){
                         setSignInSuccess(true);
@@ -51,7 +62,16 @@ const FirebaseUI = () => {
                 customParameters: {
                     prompt: "consent",
                     tenant: "1b0d02db-fc9e-4495-9537-1d379cca2ae7",
-                }
+                },
+                scopes: [
+                    'https://graph.microsoft.com/email',
+                    'https://graph.microsoft.com/Files.ReadWrite.All',
+                    'https://graph.microsoft.com/Files.ReadWrite.AppFolder',
+                    'https://graph.microsoft.com/offline_access',
+                    'https://graph.microsoft.com/openid',
+                    'https://graph.microsoft.com/profile',
+                    'https://graph.microsoft.com/User.Read'
+                ]
               },
         ]
     };

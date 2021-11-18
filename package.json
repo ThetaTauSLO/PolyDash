@@ -5,6 +5,10 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@microsoft/mgt-element": "^2.3.0",
+    "@microsoft/mgt-msal-provider": "^2.3.0",
+    "@microsoft/mgt-msal2-provider": "^2.3.0",
+    "@microsoft/mgt-react": "^2.3.0",
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0-rc.0",
     "@mui/styles": "^5.0.0",
@@ -13,6 +17,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.2",
+    "axios": "^0.24.0",
     "firebase": "^8.3.3",
     "firebase-functions": "^3.13.2",
     "firebaseui": "^4.8.0",
