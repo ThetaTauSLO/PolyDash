@@ -22,9 +22,9 @@ const AccountMenu = () => {
     return (
         <List>
             <Link to={'/account/'+accountId+'/'} style={{textDecoration:'none'}}>
-                <ListItem button key="Demo App">
+                <ListItem button key="HKN App">
                     <ListItemIcon><DashboardIcon /></ListItemIcon>
-                    <ListItemText primary={<Typography color="textPrimary">Demo App</Typography>} />
+                    <ListItemText primary={<Typography color="textPrimary">HKN App</Typography>} />
                 </ListItem>
             </Link>
             {userData.currentAccount.role === 'admin' && 

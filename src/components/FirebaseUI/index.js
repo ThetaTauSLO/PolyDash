@@ -70,7 +70,8 @@ const FirebaseUI = () => {
                     'https://graph.microsoft.com/offline_access',
                     'https://graph.microsoft.com/openid',
                     'https://graph.microsoft.com/profile',
-                    'https://graph.microsoft.com/User.Read'
+                    'https://graph.microsoft.com/User.Read',
+                    'https://graph.microsoft.com/Calendars.ReadWrite.Shared'
                 ]
               },
         ]

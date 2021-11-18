@@ -85,7 +85,7 @@ const ImageEdit = () => {
                 id = {imageId}
                 schema = {formSchema}
                 validation = {validate}
-                success = {<Alert severity="success">Success! No data is saved because the database is a static file. This is just a demo.</Alert>}
+                success = {<Alert severity="success">Success. Not implemented.</Alert>}
                 handleEdit = {EditImageApi}
             >
                 <TextField

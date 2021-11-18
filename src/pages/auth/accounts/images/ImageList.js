@@ -82,9 +82,9 @@ const ImageList = () => {
 
     return (
         <Stack spacing={3}>
-            <Alert severity="info">
+            {/* <Alert severity="info">
                 This is a demo
-            </Alert>
+            </Alert> */}
             <div style={{marginLeft: "auto"}}>
                 <Stack direction="row" spacing={1}>
                     <Button variant="contained" onClick={() => history.push("/account/"+userData.currentAccount.id+"/images/create")} >Create Image Link</Button>

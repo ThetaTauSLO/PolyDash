@@ -57,7 +57,7 @@ const ImageCreate = () => {
         <DataCreate
             schema = {formSchema}
             validation = {validate}
-            success = {<Alert severity="success">Success! No data is saved because the database is a static file. This is just a demo.</Alert>}
+            success = {<Alert severity="success">Success! Not Implemented.</Alert>}
             handleCreation = {CreateImageApi}
         >
             <TextField

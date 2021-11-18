@@ -10,8 +10,6 @@ import MicrosoftAuth from "../../MicrosoftAuth";
 
 
 const UserMenu = () => {
-    // const authe = MicrosoftAuth();
-
     // console.log("signedIn Microsoft auth: ", isSignedIn);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
