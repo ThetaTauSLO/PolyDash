@@ -42,6 +42,7 @@ const UpdateResume = () => {
       };
     
     const handleFileSubmit = async (selectedData) => {
+        setInSubmit(true);
         let selectedFile = selectedData.target.files[0];
         
         const formData = new FormData();
@@ -80,6 +81,7 @@ const UpdateResume = () => {
                 message: 'Unable to upload file.' + JSON.stringify(response)
             });
         }
+        setInSubmit(false);
     };
 
     useEffect(() => {
