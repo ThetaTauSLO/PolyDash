@@ -10,7 +10,7 @@ const DataList = ({handleFetch, schema}) => {
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [isLoading, setIsLoading] = useState(true);
-    
+
     useEffect(() => {
         setIsLoading(true);
         handleFetch(page, pageSize).then(
@@ -20,11 +20,11 @@ const DataList = ({handleFetch, schema}) => {
                 setTotal(res.total);
                 setIsLoading(false);
             }
-        )
+        ).catch(res => { setIsLoading(false);return null; })
     },[handleFetch, page, pageSize]);
 
     useEffect(() => {
-        return () => { 
+        return () => {
             mountedRef.current = false
         }
     },[]);

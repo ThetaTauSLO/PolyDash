@@ -3,7 +3,7 @@ import { images } from "./images.json";
 const ListImageApi = (page, pageSize) => {
     return new Promise((resolve, reject) => {
         const start = page * pageSize;
-        if(start >= 0 && start < images.length-1){
+        if(start >= 0 && start <= images.length-1){
             let records = [];
             for(let i=start; i<images.length; i++){
                 if(images.length<=i || i>=(start+pageSize)){
@@ -59,7 +59,7 @@ const EditImageApi = (id, data) => {
         }else{
             reject('out of range');
         }
-        
+
     })
 }
 
