@@ -65,7 +65,7 @@ const FirebaseUI = () => {
                 },
                 scopes: [
                     'https://graph.microsoft.com/email',
-                    'https://graph.microsoft.com/Files.ReadWrite.All',
+                    // 'https://graph.microsoft.com/Files.ReadWrite.All',
                     'https://graph.microsoft.com/Files.ReadWrite.AppFolder',
                     'https://graph.microsoft.com/offline_access',
                     'https://graph.microsoft.com/openid',
