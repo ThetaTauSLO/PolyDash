@@ -7,6 +7,7 @@ import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
 import Logo from "../Logo";
 import { setCookie, getCookie, checkCookie } from "../CookieHelper";
+import { default as CalPolyLogo } from "../Logo/calpoly_logo.svg"
 
 const FirebaseUI = () => {
 
@@ -18,6 +19,7 @@ const FirebaseUI = () => {
 
     const [signInSuccess, setSignInSuccess] = useState(null);
 
+    console.log("FirebaseUI Login Logo Select: ", CalPolyLogo);
     // Configure FirebaseUI.
     const uiConfig = {
         callbacks: {
@@ -63,6 +65,8 @@ const FirebaseUI = () => {
                     prompt: "consent",
                     tenant: "1b0d02db-fc9e-4495-9537-1d379cca2ae7",
                 },
+                fullLabel: "Sign in with Cal Poly SSO",
+                iconUrl: CalPolyLogo,
                 scopes: [
                     'https://graph.microsoft.com/email',
                     // 'https://graph.microsoft.com/Files.ReadWrite.All',

@@ -23,16 +23,19 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 src/components/FirebaseAuth/firebase-config.json
-.firebaserc
-firebase.json
+# .firebaserc
+# firebase.json
 .firebase/hosting.YnVpbGQ.cache
 firestore-debug.log
 functions/.eslintrc.json
 firebase-debug.log
-src/inc/stripe.json
-functions/stripe.json
 ui-debug.log
-functions/config.json
-functions/mailgun.json
 .firebase/hosting.cHVibGlj.cache
 .c9/
+
+# SECURITY RELATED
+src/inc/stripe.json
+functions/stripe.json
+functions/config.json
+functions/mailgun.json
+
