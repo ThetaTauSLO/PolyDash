@@ -1,22 +1,57 @@
 import axios from 'axios';
 import { getCookie } from '../CookieHelper';
+import { FirebaseAuth } from '../FirebaseAuth/firebase';
+
 export const getProfileBase64 = async (token) => {
     const graphEndpoint = "https://graph.microsoft.com/v1.0/me/photo/$value";
     try {
         const response = await axios(graphEndpoint, { headers: { Authorization: `Bearer ${token}` }, responseType: 'arraybuffer' });
         const avatar = Buffer.from(response.data, 'binary').toString('base64');
         // console.log("avatar: ", avatar);
+
         return avatar;
     }
     catch (error) {
         console.error(Object.keys(error), error.message); 
     }
-    
 }
+
+export const getUserDetail = async (token) => {
+    const graphEndpoint = "https://graph.microsoft.com/v1.0/me";
+    try {
+        const response = await axios(graphEndpoint, { headers: { Authorization: `Bearer ${token}` }, responseType: 'json' });
+        // console.log("response: ", response);
+
+        return response;
+    }
+    catch (error) {
+        console.error(Object.keys(error), error.message); 
+        return error.response;
+    }
+}
+
 export const getAccessToken = () => {
     // return a promise with accessToken string
     let aToken = getCookie("msoauthAccessToken");
     // console.log("getAccessToken: ", aToken);
+
+     // Validating Microsoft access token and reauthenticate if 
+     // no longer valid.
+     (async () => {
+        let validateResult = await getUserDetail(aToken);
+        // console.log("getAccessToken validate res: ", validateResult);
+        if (validateResult.status === 401) {
+            // unauthorized. Sign out authentication.
+            FirebaseAuth.auth().signOut().then(function() {
+                console.log('Signed out due to invalid msoauthAccessToken.');
+              }, function(error) {
+                console.error('Unable to sign out: ', error);
+              });
+        }
+        })();
+    
+    
+
     return aToken;
   }
 
@@ -54,7 +89,7 @@ export const getAccessToken = () => {
     const payload = {  };
     try {
         const response = await axios.post(graphEndpoint, payload, { headers: { Authorization: `Bearer ${token}` }, responseType: 'json' });
-        console.log("response: ", response);
+        // console.log("response: ", response);
         return response;
     }
     catch (error) {
