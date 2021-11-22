@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { FirebaseAuth } from '../FirebaseAuth/firebase';
-import firebase from "firebase/app";
 import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
 import Logo from "../Logo";
-import { setCookie, getCookie, checkCookie } from "../CookieHelper";
+import { setCookie } from "../CookieHelper";
 import { default as CalPolyLogo } from "../Logo/calpoly_logo.svg"
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -30,7 +28,7 @@ function checkCookieEnabled() {
 
     // set and read cookie
     document.cookie = "cookietest=1";
-    var ret = document.cookie.indexOf("cookietest=") != -1;
+    var ret = document.cookie.indexOf("cookietest=") !== -1;
 
     // delete cookie
     document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
@@ -123,7 +121,7 @@ const FirebaseUI = () => {
 
     return (
         <>
-        <div>s
+        <div>
         <Modal
             open={cookieError}
             aria-labelledby="Please Enable Cookie Support"

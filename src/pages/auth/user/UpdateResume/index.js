@@ -1,12 +1,10 @@
-import React, { useState, useContext, useEffect, useRef, useStyles } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from 'react-router-dom';
 import { Form, FormResult, Input } from '../../../../components/Form';
-import { AuthContext } from '../../../../components/FirebaseAuth';
 import UserPageLayout from '../../../../components/user/UserPageLayout';
 import { updateResume, getAccessToken, getSharingLink } from "../../../../components/MicrosoftAuth/graph";
 import { userUpdateResume } from '../../../../libs/user';
-import { Button, Tooltip, IconButton } from "@mui/material";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 
 const InputAlt = styled('input')({
@@ -25,21 +23,12 @@ const UpdateResume = () => {
         value: null
     });
 
-    const { authUser } = useContext(AuthContext);
-
     const [result, setResult] = useState({
         status: null,
         message: ''
     });
 
     const [inSubmit, setInSubmit] = useState(false);
-
-    const [selectedFile, setSelectedFile] = React.useState(null);
-    // const classes = useStyles();
-
-    const handleCapture = ({ target }) => {
-        setSelectedFile(target.files[0]);
-      };
     
     const handleFileSubmit = async (selectedData) => {
         setInSubmit(true);

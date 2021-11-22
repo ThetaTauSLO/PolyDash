@@ -5,7 +5,7 @@ import { BreadcrumbContext } from '../../../../components/Breadcrumb';
 import { useHistory } from "react-router-dom";
 import { ListImageApi, DeleteImageApi } from './ImagesApis';
 import { listResponse } from './images.json';
-import { Stack, Button, Alert } from '@mui/material';
+import { Stack, Button } from '@mui/material';
 import DataDelete from "../../../../components/DataDelete";
 
 const ActionButtons = ({id, handleDeletion}) => {

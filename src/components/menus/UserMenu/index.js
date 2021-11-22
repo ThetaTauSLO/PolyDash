@@ -6,8 +6,6 @@ import { IconButton, Menu, MenuItem, Avatar, Divider } from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import MicrosoftAuth from "../../MicrosoftAuth";
-
 
 const UserMenu = () => {
     // console.log("signedIn Microsoft auth: ", isSignedIn);

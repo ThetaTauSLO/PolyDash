@@ -76,16 +76,16 @@ export const userGetResume = async () => {
 
     const userDocRef = Firestore.collection('users').doc(currentUser.uid);
     return userDocRef.get();
-    await userDocRef.get().then((doc) => {
-        if (doc.exists && (doc.data()['resumeURL'] !== "" && doc.data()['resumeURL'] !== undefined)) {
-            console.log("Found resume:",  doc.data()['resumeURL']);
-            return (doc.data()['resumeURL']);
-        } else {
-            // doc.data() will be undefined in this case
-            return ("No Resume Uploaded");
-        }
-    }).catch((error) => {
-        console.error(error);
-        return("Error getting resume URL");
-    });
+    // await userDocRef.get().then((doc) => {
+    //     if (doc.exists && (doc.data()['resumeURL'] !== "" && doc.data()['resumeURL'] !== undefined)) {
+    //         console.log("Found resume:",  doc.data()['resumeURL']);
+    //         return (doc.data()['resumeURL']);
+    //     } else {
+    //         // doc.data() will be undefined in this case
+    //         return ("No Resume Uploaded");
+    //     }
+    // }).catch((error) => {
+    //     console.error(error);
+    //     return("Error getting resume URL");
+    // });
 }

@@ -1,9 +1,5 @@
 import { Providers, SimpleProvider, ProviderState } from '@microsoft/mgt-element';
-import React, { useEffect, useState, useContext } from "react";
-import { MsalProvider } from '@microsoft/mgt-msal-provider';
 import { getCookie } from '../CookieHelper';
-// import { AuthContext } from '../FirebaseAuth';
-import { getProfileBase64, getAccessToken } from '../MicrosoftAuth/graph.js';
 
 const MicrosoftAuth = () => {
 
@@ -13,6 +9,7 @@ const MicrosoftAuth = () => {
   //   authority: 'https://login.microsoftonline.com/1b0d02db-fc9e-4495-9537-1d379cca2ae7'
   // });
 
+  // eslint-disable-next-line no-unused-vars
   function getAccessToken(scopes) {
     // return a promise with accessToken string
     let aToken = getCookie("msoauthAccessToken");

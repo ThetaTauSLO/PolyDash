@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { AuthContext } from '../../FirebaseAuth';
-import { Avatar, Button, IconButton, Box, Divider, Grid, List, ListItem, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Grid, List, ListItem, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { useHistory } from "react-router-dom";
 import { userGetResume } from '../../../libs/user/';
-import { Document, Page, pdfjs } from 'react-pdf'
-import { Person, Login, MgtFileList } from '@microsoft/mgt-react';
+import { pdfjs } from 'react-pdf'
 import { getAccessToken, getPreviewEmbed } from '../../MicrosoftAuth/graph';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -16,23 +15,7 @@ const UserProfileView = () => {
 
     const [resumeURL, setResumeURL] = useState(null);
     const [resumePreviewURL, setResumePreviewURL] = useState(null);
-    const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-  function changePage(offset) {
-    setPageNumber(prevPageNumber => prevPageNumber + offset);
-  }
 
-  function previousPage() {
-    changePage(-1);
-  }
-
-  function nextPage() {
-    changePage(1);
-  }
     React.useEffect(() => {
         async function checkResumeURL() {
             const doc = await userGetResume();
@@ -177,7 +160,7 @@ const UserProfileView = () => {
                                 <Box p={2}>{resumeURL}</Box>
                                 <div>
                                 <object data={resumePreviewURL} type="application/pdf" width="100%" height="100%">
-                                    <p>Uploaded Resume <a href={resumeURL}></a></p>
+                                    <p><a href={resumeURL}>Uploaded Resume</a></p>
                                 </object>
                                     {/* <Document
                                         file={resumeURL}

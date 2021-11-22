@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Alert, FormControlLabel, Switch, TextField } from '@mui/material';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { Paper, Box, Stack, Button } from '@mui/material';
 import { BreadcrumbContext } from '../../../../components/Breadcrumb';
 import { AuthContext } from "../../../../components/FirebaseAuth";

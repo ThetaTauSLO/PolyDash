@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       async function checkProfilePhotoURL() {
           let accessToken = getAccessToken();
           console.log("got access");
-          if (accessToken != undefined) {
+          if (accessToken !== undefined) {
             const profileURL = await getProfileBase64(accessToken);
             console.log("got profileURL");
             setUserData({

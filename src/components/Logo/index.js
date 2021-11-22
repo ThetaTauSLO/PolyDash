@@ -6,7 +6,7 @@ const Logo = ({size}) => {
     const fontSize = size || '36px';
     return (
         <>
-            <Avatar alt="Example Alt" src={mainLogo} />
+            <Avatar alt="IEEE-HKN Epsilon Phi Logo" src={mainLogo} sx={{ width: {fontSize}, height: {fontSize} }}/>
         </>
     )
 }
