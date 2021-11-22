@@ -1,7 +1,7 @@
-# Cal Poly HKN Official Site Repo
+# Cal Poly HKN Dashboard Repo
 
 Maintained by Eric Qian
 
-Jekyll & Chirpy
+React & Firebase
 
 More info coming soon!
