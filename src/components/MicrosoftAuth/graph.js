@@ -41,12 +41,24 @@ export const getAccessToken = () => {
         let validateResult = await getUserDetail(aToken);
         // console.log("getAccessToken validate res: ", validateResult);
         if (validateResult.status === 401) {
-            // unauthorized. Sign out authentication.
-            FirebaseAuth.auth().signOut().then(function() {
-                console.log('Signed out due to invalid msoauthAccessToken.');
-              }, function(error) {
-                console.error('Unable to sign out: ', error);
-              });
+            console.log("access token invalid. ATM #1");
+            aToken = getCookie("msoauthAccessToken");
+            validateResult = await getUserDetail(aToken);
+            if (validateResult.status === 401) {
+                console.log("access token invalid. ATM #2");
+                aToken = getCookie("msoauthAccessToken");
+                validateResult = await getUserDetail(aToken);
+                if (validateResult.status === 401) {
+                    // unauthorized. Sign out authentication.
+                    console.log("access token invalid. ATM #3. No more retries.");
+                    FirebaseAuth.auth().signOut().then(function() {
+                        console.log('Signed out due to invalid msoauthAccessToken.', aToken);
+                    }, function(error) {
+                        console.error('Unable to sign out: ', error);
+                    });
+                }
+            }
+            
         }
         })();
     
