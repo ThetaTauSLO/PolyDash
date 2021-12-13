@@ -104,7 +104,7 @@ const FirebaseUI = () => {
                         'https://graph.microsoft.com/email',
                         'https://graph.microsoft.com/Files.ReadWrite',
                         // 'https://graph.microsoft.com/Files.ReadWrite.AppFolder', // Doesn't officially work with 'business' type. Have issues with 404 Not Found response on resource for some tenants.
-                        'https://graph.microsoft.com/offline_access',
+                        // 'https://graph.microsoft.com/offline_access',
                         'https://graph.microsoft.com/openid',
                         'https://graph.microsoft.com/profile',
                         'https://graph.microsoft.com/User.Read',
