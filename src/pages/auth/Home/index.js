@@ -71,7 +71,7 @@ const Home = () => {
                                 <CardHeader title={account.name}/>
                                 <CardActions>
                                     {account.subscriptionStatus?(
-                                        <Button size="small" color="primary" onClick={() => history.push('/account/'+account.id+'/')}>Account Overview</Button>
+                                        <Button size="small" color="primary" onClick={() => history.push('/account/'+account.id+'/currentPlan')}>Account Overview</Button>
                                     ):(
                                         <Button size="small" color="warning" onClick={() => history.push('/account/'+account.id+'/billing/plan')}>Complete Enrollment</Button>
                                     )}

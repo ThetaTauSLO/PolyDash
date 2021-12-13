@@ -1,5 +1,5 @@
 import { FirebaseAuth } from "../../components/FirebaseAuth/firebase";
-import { log, SIGN_IN, SIGN_OUT, UPDATE_USERNAME, UPDATE_RESUME } from '../log';
+import { log, SIGN_IN, getClientIp, SIGN_OUT, UPDATE_USERNAME, UPDATE_RESUME } from '../log';
 
 export const userSignIn = (callback) => {
     var dt = new Date();
@@ -36,15 +36,20 @@ export const userSignIn = (callback) => {
             });
         }
     });
-    log(SIGN_IN);
+    getClientIp().then(function(ipAddr){
+        log(SIGN_IN + ipAddr);
+    });
+    
 }
 
 export const userSignOut = () => {
-    log(SIGN_OUT, (result) => {
-        // wait for log is successfully written before signing out
-        if(result){
-            FirebaseAuth.auth().signOut();
-        }
+    getClientIp().then(function(ipAddr){
+        log(SIGN_OUT + ipAddr, (result) => {
+            // wait for log is successfully written before signing out
+            if(result){
+                FirebaseAuth.auth().signOut();
+            }
+        });
     });   
 }
 

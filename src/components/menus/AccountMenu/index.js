@@ -6,6 +6,7 @@ import { AuthContext } from '../../FirebaseAuth';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import PaymentIcon from '@mui/icons-material/Payment';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const AccountMenu = () => {
 
@@ -40,6 +41,12 @@ const AccountMenu = () => {
                     <ListItem button key="Billing">
                         <ListItemIcon><PaymentIcon /></ListItemIcon>
                         <ListItemText primary={<Typography color="textPrimary">Billing</Typography>} />
+                    </ListItem>
+                </Link>
+                <Link to={'/account/'+accountId+'/currentPlan'} style={{textDecoration:'none'}}>
+                    <ListItem button key="Membership Detail">
+                        <ListItemIcon><ConfirmationNumberIcon /></ListItemIcon>
+                        <ListItemText primary={<Typography color="textPrimary">Membership Detail</Typography>} />
                     </ListItem>
                 </Link>
             </>

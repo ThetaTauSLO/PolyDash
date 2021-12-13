@@ -1,4 +1,5 @@
 import { FirebaseAuth } from "../../components/FirebaseAuth/firebase";
+import publicIp from "public-ip";
 
 export const log = (action, callback) => {
     const Firestore = FirebaseAuth.firestore();
@@ -20,10 +21,13 @@ export const log = (action, callback) => {
         }
     });
 }
-export const SIGN_IN = 'signed in';
+export const SIGN_IN = 'signed in from ';
 export const UPDATE_PASSWORD = 'changed password';
 export const UPDATE_USERNAME = 'changed user name';
 export const UPDATE_PHONE = 'changed phone number';
 export const UPDATE_EMAIL = 'changed email address';
 export const UPDATE_RESUME = 'updated resume';
-export const SIGN_OUT = 'signed out';
+export const SIGN_OUT = 'signed out from ';
+export const getClientIp = async () => await publicIp.v4({
+    fallbackUrls: [ "https://ifconfig.co/ip" ]
+  });
