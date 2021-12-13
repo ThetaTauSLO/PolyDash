@@ -1,7 +1,7 @@
 import React from "react";
 import FirebaseUI from '../../../components/FirebaseUI';
 import Logo from "../../../components/Logo";
-import {Alert, AlertTitle, Container, Divider, Grid } from "@mui/material";
+import {Alert, AlertTitle, Container, Divider, Grid, Tooltip } from "@mui/material";
 
 const SignIn = () => {
 
@@ -65,9 +65,12 @@ const SignIn = () => {
                         </p>
                     </Grid>
                 </Grid> */}
-            </Grid>
-                        
+            </Grid>      
         </Alert>
+        <Divider sx={{ m: 2 }}/>
+        <Tooltip interactive title={<a href="https://github.com/EnumC/CalPolyHKN/tree/dashboard" style={{color:"#ffffff"}}>https://github.com/EnumC/CalPolyHKN/tree/dashboard</a>} enterDelay={0} leaveDelay={5000}>
+        <u>Source Code</u>
+        </Tooltip>
         </Container>
         
     )
