@@ -80,7 +80,7 @@ const CurrentPlans = () => {
                             <>
                             {plans.map((plan,i) => 
                                 {if (plan.current) {
-                                    return <Grid container item alignItems="center" justify="center">
+                                    return <Grid container item key={i} alignItems="center" justify="center">
                                     <Card style={{
                                         width: '100%'
                                     }}>
@@ -92,6 +92,7 @@ const CurrentPlans = () => {
                                                 <li key={i}>
                                                     <i className="fa fa-address-card" style={{color: "#2e7d32"}} /> 
                                                     <JsxParser
+                                                        bindings={{user: authUser.user}}
                                                         jsx={feature}
                                                     />
                                                     {/* {feature} */}

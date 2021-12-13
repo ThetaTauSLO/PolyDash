@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const stripeConfig = require('./stripe.json');
 
- crypto = require('crypto');
+const crypto = require('crypto');
 const Mailgun = require('mailgun-js');
 const mailGunConfig = require('./mailgun.json');
 const config = require('./config.json');
@@ -420,7 +420,7 @@ exports.updatePaymentMethod = functions.https.onCall((data, context) => {
     });
 });
 
-exports.createSubscription = functions.https.onCall((data, context) => {
+exports.createPaymentIntent = functions.https.onCall((data, context) => {
     const stripe = require('stripe')(stripeConfig.secret_api_key);
     let account = null;
     let plan = null;
@@ -428,6 +428,49 @@ exports.createSubscription = functions.https.onCall((data, context) => {
     return Promise.all([getDoc('/accounts/'+data.accountId),getDoc('/plans/'+data.planId),admin.firestore().collection('taxes').get()]).then(([accountDoc, planDoc, taxDocs]) => {
         account = accountDoc;
         plan = planDoc;
+        if(taxDocs){
+            taxDocs.forEach(taxRate => {
+                for(let i=0; i<taxRate.data().applicable.length; i++){
+                    if(taxRate.data().applicable[i] === data.billing.country || taxRate.data().applicable[i] === data.billing.country+":"+data.billing.state){
+                        taxRates.push(taxRate.id);
+                    }
+                }
+            })
+        }
+        if(account.data().admins.indexOf(context.auth.uid) !== -1){
+            if(data.paymentMethodId){
+                return getStripeCustomerId(context.auth.uid, context.auth.token.name, context.auth.token.email, data.paymentMethodId);
+            }else{
+                return getStripeCustomerId(context.auth.uid, context.auth.token.name, context.auth.token.email);
+            }
+        }else{
+            throw new Error("Permission denied.");
+        }
+    }).then(stripeCustomerId => {
+        return stripe.paymentIntents.create({
+            amount: plan.data().price,
+            currency: 'usd',
+            automatic_payment_methods: {enabled: true},
+          });
+    }).then(paymentIntentObj => {
+        return paymentIntentObj;
+    }).catch(err => {
+        throw new functions.https.HttpsError('internal', err.message);
+    });
+});
+
+exports.createSubscription = functions.https.onCall((data, context) => {
+    const stripe = require('stripe')(stripeConfig.secret_api_key);
+    let account = null;
+    let plan = null;
+    let taxRates = [];
+    return Promise.all([getDoc('/accounts/'+data.accountId),getDoc('/plans/'+data.planId),admin.firestore().collection('taxes').get(), isInAllowList(data.planId, data.accountId)]).then(([accountDoc, planDoc, taxDocs, isAllowed]) => {
+        account = accountDoc;
+        plan = planDoc;
+
+        if (!isAllowed) {
+            throw new Error("Permission denied. User Not Allowed To Enroll.");
+        }
         if(taxDocs){
             taxDocs.forEach(taxRate => {
                 for(let i=0; i<taxRate.data().applicable.length; i++){
@@ -564,6 +607,34 @@ exports.cancelSubscription = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError('internal', err.message);
     });
 });
+
+const isInAllowList = (planID, accountID) => {
+    return Promise.all([getDoc('accounts/'+accountID), getDoc('plans/'+planID)]).then(([accountDoc, planDoc]) => {
+        let account = accountDoc.data().name;
+        if(typeof(planDoc.data().allowList) === 'undefined'){
+            console.log('[No allowList info found. Default to ALLOW] ' + planID, account);
+            return true;
+        }
+        // else if (planDoc.data().allowList.indexOf(account) === -1) {
+        //     //
+        // }
+        else {
+            // found allowList for document.
+            return admin.firestore().collection('plans').where('allowList', 'array-contains',
+            account).get().then(snapshot => {
+                if(snapshot.empty){
+                    console.log('[Not in allowList. DENY] ' + planID, account);
+                    return(false);
+                }else{
+                    console.log('[In allowList. ALLOW] ' + planID, account);
+                    return(true);
+                }
+            });
+        }
+    }).then(res => {
+        return res;
+    });
+}
 
 const updateInvoice = (invoiceObject) => {
     return admin.firestore().collection('accounts').where('stripeActiveSubscriptionID', '==', invoiceObject.subscription).get().then(snapshot => {

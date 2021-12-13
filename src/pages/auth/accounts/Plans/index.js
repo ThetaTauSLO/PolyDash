@@ -170,6 +170,12 @@ const Plans = () => {
         }
     }
 
+    function replacer(key,value)
+    {
+        if (key === "stsTokenManager" || key === "apiKey") return undefined;
+        else return value;
+    }
+
     return (
         <>
         {(!loading)?(
@@ -195,8 +201,9 @@ const Plans = () => {
                                             <ul style={{listStyleType: 'none', paddingLeft: '0px'}}>
                                             {plan.features.map((feature, i) => 
                                                 <li key={i}>
-                                                    <i className="fa fa-address-card" style={{color: "#2e7d32"}} /> 
+                                                    {/* <i className="fa fa-address-card" style={{color: "#2e7d32"}} />  */}
                                                     <JsxParser
+                                                    bindings={{user: authUser.user, userDataText: JSON.stringify(authUser.user, replacer, '\t')}}
                                                         jsx={feature}
                                                     />
                                                     {/* {feature} */}
