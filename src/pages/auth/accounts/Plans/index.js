@@ -45,7 +45,9 @@ const Plans = () => {
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({ id: 0 });
   const [errorMessage, setErrorMessage] = useState(null);
-  const [clientOptions, setClientSK] = useState({
+  const [clientOptions, 
+        //setClientSK
+        ] = useState({
     // passing the client secret obtained in step 2
     clientSecret: "",
     // Fully customizable with appearance API.
@@ -54,16 +56,16 @@ const Plans = () => {
     },
   });
 
-  function setClientSKOptions(skkey) {
-    setClientSK({
-      // passing the client secret obtained in step 2
-      clientSecret: skkey,
-      // Fully customizable with appearance API.
-      appearance: {
-        /*...*/
-      },
-    });
-  }
+  // function setClientSKOptions(skkey) {
+  //   setClientSK({
+  //     // passing the client secret obtained in step 2
+  //     clientSecret: skkey,
+  //     // Fully customizable with appearance API.
+  //     appearance: {
+  //       /*...*/
+  //     },
+  //   });
+  // }
 
   useEffect(() => {
     setBreadcrumb([
@@ -84,7 +86,7 @@ const Plans = () => {
       },
     ]);
     setLoading(true);
-
+    console.log("Current subscription status: ", userData.currentAccount.subscriptionStatus);
     const plansQuery = FirebaseAuth.firestore()
       .collection("plans")
       .orderBy("price", "asc");
@@ -101,7 +103,7 @@ const Plans = () => {
           features: doc.data().features,
           stripePriceId: doc.data().stripePriceId,
           type: doc.data().type,
-          current: (userData.currentAccount.planId === doc.id && (userData.subscriptionStatus === 'active' || userData.subscriptionStatus === 'paid' )) ? true : false,
+          current: (userData.currentAccount.planId === doc.id && (userData.currentAccount.subscriptionStatus === 'active' || userData.currentAccount.subscriptionStatus === 'paid' )) ? true : false,
         });
       });
       if (p.length > 0) {

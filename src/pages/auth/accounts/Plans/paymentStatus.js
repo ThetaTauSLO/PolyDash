@@ -14,25 +14,6 @@ const PaymentStatus = () => {
   const { userData } = useContext(AuthContext);
   const title = "Payment Status";
   const history = useHistory();   
-  const getCheckoutData = async (event) => {
-    const sessionIdParam = new URLSearchParams(window.location.search).get(
-      "session_id"
-    );
-    const checkoutSession = CloudFunctions.httpsCallable("checkoutSession");
-    if (message === null) {
-        checkoutSession({
-            sessionId: sessionIdParam,
-          }).then((res) => {
-            console.log("checkoutSession: ", res);
-            if (res.data.result === "success") {
-                setMessage("payment_status: " + res.data.data.payment_status);
-            } else {
-              console.error("checkoutSession returned result", res);
-              setMessage(JSON.stringify(res));
-            }
-          });
-        };
-    }
     
     useEffect(() => {setBreadcrumb([
         {
@@ -51,7 +32,26 @@ const PaymentStatus = () => {
           active: true,
         },
       ]);
-      getCheckoutData();}, []);
+      const getCheckoutData = async (event) => {
+        const sessionIdParam = new URLSearchParams(window.location.search).get(
+          "session_id"
+        );
+        const checkoutSession = CloudFunctions.httpsCallable("checkoutSession");
+        if (message === null) {
+            checkoutSession({
+                sessionId: sessionIdParam,
+              }).then((res) => {
+                console.log("checkoutSession: ", res);
+                if (res.data.result === "success") {
+                    setMessage("payment_status: " + res.data.data.payment_status);
+                } else {
+                  console.error("checkoutSession returned result", res);
+                  setMessage(JSON.stringify(res));
+                }
+              });
+            };
+        }
+      getCheckoutData();}, [setBreadcrumb, userData, message]);
   return (
       <>Payment Status
       {message !== null && (
