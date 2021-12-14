@@ -166,7 +166,10 @@ const PaymentList = () => {
                                     }}
                                     ></DataTable>
                                 ):(
-                                    <Box p={3}>No invoice is found</Box>
+                                    <div>
+                                        <Box p={3}>No invoice is found</Box>
+                                        <Box p={3}>If you just completed a purchase, it may take 5 to 15 minutes for the invoice to be reflected.</Box>
+                                    </div>
                                 )}
                             </>
                         )}

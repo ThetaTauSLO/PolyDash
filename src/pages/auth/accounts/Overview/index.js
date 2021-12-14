@@ -31,7 +31,7 @@ const Overview = () => {
     }, [userData, setBreadcrumb, title]);
 
     return (
-        <Redirect to={"/account/"+userData.currentAccount.id+"/images"} />
+        <Redirect to={"/account/"+userData.currentAccount.id+"/currentPlan"} />
     )
 }
 

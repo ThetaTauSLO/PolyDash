@@ -877,6 +877,7 @@ const isInAllowList = (planID, accountID) => {
         return admin
           .firestore()
           .collection("plans")
+          .where(admin.firestore.FieldPath.documentId(), '==', planID)
           .where("allowList", "array-contains", account)
           .get()
           .then((snapshot) => {
@@ -1066,6 +1067,47 @@ exports.checkoutSession = functions.https.onCall((data, context) => {
     const stripe = require("stripe")(stripeConfig.secret_api_key);
     return stripe.checkout.sessions.retrieve(sessionId)
     .then((res) => {
+      if (res.payment_status === "paid") {
+        return admin
+        .firestore()
+        .collection("accounts")
+        .where("stripeActiveSubscriptionID", "==", res.id)
+        .get()
+        .then((snapshot) => {
+          console.log("snapshot: ", snapshot);
+          if (snapshot.empty) {
+            throw Error(
+              "checkoutSession: account does not exist with checkout subscription id: " +
+                res.id
+            );
+          } else {
+            let actions = [];
+            snapshot.forEach((account) => {
+              console.log("checkoutSession account: ", account);
+              console.log("checkoutSession payment_status ", res.payment_status);
+              actions.push(
+                account.ref.set(
+                  {
+                    subscriptionStatus: res.payment_status
+                  },
+                  { merge: true }
+                )
+              );
+            });
+            return Promise.all(actions);
+          }
+        })
+        .then((writeResult) => {
+          console.log("checkoutSession writeResult: ", writeResult);
+          return {
+            result: "success",
+            data: res
+          };
+        })
+        .catch((err) => {
+          throw err;
+        });
+      }
         return {
             result: "success",
             data: res

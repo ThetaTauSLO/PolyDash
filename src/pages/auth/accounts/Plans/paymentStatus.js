@@ -58,6 +58,7 @@ const PaymentStatus = () => {
         <Container>
           <Alert severity="info">
             {message}
+            <br />
             Please note that it may take 5 to 15 minutes for your account status to be updated.
           </Alert>
           <br />
