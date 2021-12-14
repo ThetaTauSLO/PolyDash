@@ -897,46 +897,47 @@ const isInAllowList = (planID, accountID) => {
 
 const updateCheckout = (checkoutObject) => {
   // console.log("updateCheckout checkoutObject: ", checkoutObject);
-  if (checkoutObject.payment_status === "paid") {
-    return admin
-    .firestore()
-    .collection("accounts")
-    .where("stripeActiveSubscriptionID", "==", checkoutObject.id)
-    .get()
-    .then((snapshot) => {
-      console.log("snapshot: ", snapshot);
-      if (snapshot.empty) {
-        throw Error(
-          "account does not exist with checkout subscription id: " +
-            checkoutObject.id
-        );
-      } else {
-        let actions = [];
-        snapshot.forEach((account) => {
-          console.log("account: ", account);
-          console.log("payment_status ", checkoutObject.payment_status);
-          actions.push(
-            account.ref.set(
-              {
-                subscriptionStatus: checkoutObject.payment_status
-              },
-              { merge: true }
-            )
-          );
-        });
-        return Promise.all(actions);
-      }
-    })
-    .then((writeResult) => {
-      console.log("writeResult: ", writeResult);
-      return true;
-    })
-    .catch((err) => {
-      throw err;
-    });
-  }
+  console.log("paymentStatus: ", checkoutObject.payment_status);
+  console.log("checkout ID: ", checkoutObject.id);
   
+  return admin
+  .firestore()
+  .collection("accounts")
+  .where("stripeActiveSubscriptionID", "==", checkoutObject.id)
+  .get()
+  .then((snapshot) => {
+    console.log("snapshot: ", snapshot);
+    if (snapshot.empty) {
+      throw Error(
+        "account does not exist with checkout subscription id: " +
+          checkoutObject.id
+      );
+    } else {
+      let actions = [];
+      snapshot.forEach((account) => {
+        console.log("account: ", account);
+        console.log("payment_status ", checkoutObject.payment_status);
+        actions.push(
+          account.ref.set(
+            {
+              subscriptionStatus: checkoutObject.payment_status
+            },
+            { merge: true }
+          )
+        );
+      });
+      return Promise.all(actions);
+    }
+  })
+  .then((writeResult) => {
+    console.log("writeResult: ", writeResult);
+    return true;
+  })
+  .catch((err) => {
+    throw err;
+  });
 }
+
 const updateInvoice = (invoiceObject) => {
   return admin
     .firestore()
