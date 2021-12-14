@@ -706,7 +706,16 @@ exports.createSubscription = functions.https.onCall((data, context) => {
             // retrieve subscription
             return stripe.subscriptions.retrieve(
               account.data().stripeActiveSubscriptionID
-            );
+            ).catch((err) => {
+              // create subscription
+              return stripe.subscriptions.create({
+                customer: stripeCustomerId,
+                default_tax_rates: taxRates,
+                default_payment_method: data.paymentMethodId,
+                items: [{ price: plan.data().stripePriceId }],
+                trial_period_days: plan.data().trialPeriod,
+              });
+            });
           } else {
             // create subscription
             return stripe.subscriptions.create({
@@ -725,7 +734,13 @@ exports.createSubscription = functions.https.onCall((data, context) => {
           // retrieve subscription
           return stripe.subscriptions.retrieve(
             account.data().stripeActiveSubscriptionID
-          );
+          ).catch((err) => {
+            // create subscription
+            return stripe.subscriptions.create({
+              customer: stripeCustomerId,
+              items: [{ price: plan.data().stripePriceId }],
+            });
+          });
         } else {
           // create subscription
           return stripe.subscriptions.create({
@@ -751,7 +766,10 @@ exports.createSubscription = functions.https.onCall((data, context) => {
                 },
               ],
             }
-          );
+          ).catch((err) => {
+            console.log("subscription updateA fail ignored", err);
+            return subscription;
+          });
         } else {
           return stripe.subscriptions.update(
             account.data().stripeActiveSubscriptionID,
@@ -763,7 +781,10 @@ exports.createSubscription = functions.https.onCall((data, context) => {
                 },
               ],
             }
-          );
+          ).catch((err) => {
+            console.log("subscription updateB fail ignored", err);
+            return subscription;
+          });
         }
       } else {
         return subscription;
@@ -782,8 +803,8 @@ exports.createSubscription = functions.https.onCall((data, context) => {
           subscriptionCurrentPeriodStart: subscription.current_period_start,
           subscriptionCurrentPeriodEnd: subscription.current_period_end,
           subscriptionEnded: subscription.ended || 0,
-          billingCountry: data.billing.country,
-          billingState: data.billing.state,
+          // billingCountry: data.billing.country,
+          // billingState: data.billing.state,
         },
         { merge: true }
       );
@@ -1111,11 +1132,12 @@ return Promise.all([
             // create subscription
             return stripe.checkout.sessions.create({
                 customer: stripeCustomerId,
-                mode: 'payment',
+                mode: data.mode,
                 line_items: [{
                     price: plan.data().stripePriceId,
                     quantity: 1,
                 }],
+                allow_promotion_codes: true,
                 // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
                 success_url: `${domainURL}/account/${data.accountId}/billing/paymentStatus?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${domainURL}/account/${data.accountId}/billing/paymentStatus?session_id={CHECKOUT_SESSION_ID}`,

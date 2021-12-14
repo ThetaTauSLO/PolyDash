@@ -25,7 +25,7 @@ const AccountTemplate = ({ role, allowInactive, children }) => {
         const accountRef = FirebaseAuth.firestore().doc('accounts/'+accountId);
         accountRef.get().then(doc => {
             if(doc.exists){
-                if(doc.data().subscriptionStatus && doc.data().subscriptionStatus==='active'){
+                if(doc.data().subscriptionStatus && (doc.data().subscriptionStatus==='active' || doc.data().subscriptionStatus==='paid')){
                     setIsActive(true);
                 }
                 account.id = doc.id;
@@ -46,7 +46,7 @@ const AccountTemplate = ({ role, allowInactive, children }) => {
                     currentAccount: account
                 }));
                 if(account.role !== role && role !== '*'){
-                    setError('Permission deined.');
+                    setError('Permission denied.');
                 }
                 setLoading(false);
             }else{

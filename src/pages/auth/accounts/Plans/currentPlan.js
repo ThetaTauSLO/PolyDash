@@ -3,8 +3,9 @@ import { FirebaseAuth } from "../../../../components/FirebaseAuth/firebase";
 import { AuthContext } from "../../../../components/FirebaseAuth";
 import { BreadcrumbContext } from '../../../../components/Breadcrumb';
 import Loader from '../../../../components/Loader';
-import { Paper, Box, Grid, Card, CardHeader, CardContent,  Divider,  Alert } from "@mui/material";
+import { Paper, Box, Grid, Card, CardHeader, CardContent,  Divider,  Alert, Button, Chip, Avatar } from "@mui/material";
 import JsxParser from 'react-jsx-parser'
+import { useHistory } from 'react-router-dom';
 
 const CurrentPlans = () => {
     const title = 'Your Current Membership';
@@ -12,7 +13,7 @@ const CurrentPlans = () => {
     const { userData, authUser } = useContext(AuthContext);
     const mountedRef = useRef(true);
     const { setBreadcrumb } = useContext(BreadcrumbContext);
-
+    const history = useHistory();
 
     const [loading, setLoading] = useState(true);
     const [plans, setCurrentPlans] = useState([]);
@@ -67,6 +68,12 @@ const CurrentPlans = () => {
         }
     },[]);
 
+    function replacer(key,value)
+    {
+        if (key === "stsTokenManager" || key === "apiKey") return undefined;
+        else return value;
+    }
+
     return (
         <>
         {(!loading)?(
@@ -90,13 +97,13 @@ const CurrentPlans = () => {
                                             <ul style={{listStyleType: 'none', paddingLeft: '0px'}}>
                                             {plan.features.map((feature, i) => 
                                                 <li key={i}>
-                                                    <i className="fa fa-address-card" style={{color: "#2e7d32"}} /> 
-                                                    <JsxParser
-                                                        bindings={{user: authUser.user}}
-                                                        jsx={feature}
+                                                    {/* <i className="fa fa-address-card" style={{color: "#2e7d32"}} />  */}
+                                                    <JsxParser  bindings={{user: authUser.user, userData: userData, userDataText: JSON.stringify(authUser.user, replacer, '\t')}}
+                                                        components={{Chip, Avatar}}
+                                                        jsx={feature} 
                                                     />
                                                     {/* {feature} */}
-                                                    {console.log(authUser.user)}
+                                                    {/* {console.log(authUser.user)} */}
                                                 </li>
                                             )}
                                             </ul>
@@ -110,6 +117,8 @@ const CurrentPlans = () => {
                             </>
                         
                     </Grid>
+                    <Button color="primary" variant="contained" onClick={() => history.push('/user/profile')}>Access Profile</Button>
+
                 </Box>
             </Paper>
             ):(
@@ -121,6 +130,7 @@ const CurrentPlans = () => {
         ):(
             <Loader text="loading plans..." />
         )}
+        
         </>
 
     )

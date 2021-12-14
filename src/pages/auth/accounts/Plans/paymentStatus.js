@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
+import { useHistory } from 'react-router-dom';
 import { CloudFunctions } from "../../../../components/FirebaseAuth/firebase";
 import {
-    Alert,
+    Alert, CircularProgress, Container, Button
   } from "@mui/material";
 import { BreadcrumbContext } from "../../../../components/Breadcrumb";
 import { AuthContext } from "../../../../components/FirebaseAuth";
@@ -12,6 +13,7 @@ const PaymentStatus = () => {
   const { setBreadcrumb } = useContext(BreadcrumbContext);
   const { userData } = useContext(AuthContext);
   const title = "Payment Status";
+  const history = useHistory();   
   const getCheckoutData = async (event) => {
     const sessionIdParam = new URLSearchParams(window.location.search).get(
       "session_id"
@@ -53,9 +55,20 @@ const PaymentStatus = () => {
   return (
       <>Payment Status
       {message !== null && (
-        <Alert severity="info">
-          {message}
-        </Alert>
+        <Container>
+          <Alert severity="info">
+            {message}
+          </Alert>
+          <br />
+          <Button variant="contained" color="primary" onClick={() => history.push('/')}>Back To Account Overview</Button>
+        </Container>
+      )}
+      {message === null && (
+        <Container>
+          <br />
+          <CircularProgress />
+        </Container>
+        
       )}</>
   );
 };

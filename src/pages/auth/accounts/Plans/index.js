@@ -21,6 +21,8 @@ import {
   Container,
   Stack,
   Alert,
+  Avatar,
+  Chip
 } from "@mui/material";
 import JsxParser from "react-jsx-parser";
 import CheckoutForm from "./checkoutForm";
@@ -98,7 +100,8 @@ const Plans = () => {
           paymentCycle: doc.data().paymentCycle,
           features: doc.data().features,
           stripePriceId: doc.data().stripePriceId,
-          current: userData.currentAccount.planId === doc.id ? true : false,
+          type: doc.data().type,
+          current: (userData.currentAccount.planId === doc.id && (userData.subscriptionStatus === 'active' || userData.subscriptionStatus === 'paid' )) ? true : false,
         });
       });
       if (p.length > 0) {
@@ -151,31 +154,64 @@ const Plans = () => {
 //       });
 //     setProcessing(false);
 //   };
-    const createCheckoutSession = CloudFunctions.httpsCallable(
+
+    if (selectedPlan.price !== 0) {
+      // Charge via normal flow.
+      const createCheckoutSession = CloudFunctions.httpsCallable(
         "createCheckoutSession"
-    );
-    createCheckoutSession({
-        planId: selectedPlan.id,
-        accountId: userData.currentAccount.id,
-    })
-        .then((res) => {
-            console.log("createCheckoutSession: ", res);
-            if (res.data.result === "success") {
-                let checkoutURL = res.data.url;
-                window.open(checkoutURL, '_blank').focus();
-            }
-            else {
-                console.error("createCheckoutSession returned result", res);
-            }
-            setProcessing(false);
-            
-        })
-        .catch((err) => {
-            if (!mountedRef.current) return null;
-            setProcessing(false);
-            setErrorMessage(err.message);
+      );
+      // let checkoutWindow;
+      // try {
+      //   checkoutWindow = window.open('about:blank', 'Checkout Loading');
+      //   checkoutWindow.document.write("<p>Loading checkout. Please wait.</p>");
+      // }
+      // catch (e){
+      //   setProcessing(false);
+      //   setErrorMessage("Browser blocked checkout window.");
+      // }
+      createCheckoutSession({
+          planId: selectedPlan.id,
+          accountId: userData.currentAccount.id,
+          mode: selectedPlan.type
+      })
+          .then((res) => {
+              console.log("createCheckoutSession: ", res);
+              if (res.data.result === "success") {
+                  let checkoutURL = res.data.url;
+                  // checkoutWindow.href = checkoutURL;
+                  window.open(checkoutURL, "_blank") || window.location.replace(checkoutURL);
+              }
+              else {
+                  console.error("createCheckoutSession returned result", res);
+              }
+              setProcessing(false);
+              
+          })
+          .catch((err) => {
+              if (!mountedRef.current) return null;
+              setProcessing(false);
+              setErrorMessage(err.message);
+          });
+      }
+      else {
+        // Plan is free. Use createSubscription API workaround.
+        const createSubscription = CloudFunctions.httpsCallable('createSubscription');
+          createSubscription({
+              planId: selectedPlan.id,
+              accountId: userData.currentAccount.id
+          }).then(res => {
+              // physical page load to reload the account data
+              if (!mountedRef.current) return null
+              document.location = '/account/'+userData.currentAccount.id+'/';
+          }).catch(err => {
+              if (!mountedRef.current) return null
+              setProcessing(false);
+              setErrorMessage(err.message);
         });
-    };
+      }
+    }
+    
+    
 
   function replacer(key, value) {
     if (key === "stsTokenManager" || key === "apiKey") return undefined;
@@ -225,11 +261,14 @@ const Plans = () => {
                                 >
                                   {plan.features.map((feature, i) => (
                                     <li key={i}>
-                                      <i
+                                      {/* <i
                                         className="fa fa-address-card"
                                         style={{ color: "#2e7d32" }}
+                                      /> */}
+                                      <JsxParser  bindings={{user: authUser.user, userData: userData, userDataText: JSON.stringify(authUser.user, replacer, '\t')}}
+                                                  components={{Chip, Avatar}}
+                                                  jsx={feature}
                                       />
-                                      <JsxParser jsx={feature} />
                                       {/* {feature} */}
                                       {/* {console.log(authUser.user)} */}
                                     </li>
