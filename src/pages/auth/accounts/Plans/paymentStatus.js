@@ -1,57 +1,63 @@
-import {useState, useEffect} from 'react';
-import {useStripe} from '@stripe/react-stripe-js';
+import { useState, useEffect, useContext } from "react";
+import { CloudFunctions } from "../../../../components/FirebaseAuth/firebase";
+import {
+    Alert,
+  } from "@mui/material";
+import { BreadcrumbContext } from "../../../../components/Breadcrumb";
+import { AuthContext } from "../../../../components/FirebaseAuth";
+
 
 const PaymentStatus = () => {
-  const stripe = useStripe();
   const [message, setMessage] = useState(null);
-
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    // Retrieve the "payment_intent_client_secret" query parameter appended to
-    // your return_url by Stripe.js
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      'payment_intent_client_secret'
+  const { setBreadcrumb } = useContext(BreadcrumbContext);
+  const { userData } = useContext(AuthContext);
+  const title = "Payment Status";
+  const getCheckoutData = async (event) => {
+    const sessionIdParam = new URLSearchParams(window.location.search).get(
+      "session_id"
     );
-
-    // Retrieve the PaymentIntent
-    stripe
-      .retrievePaymentIntent(clientSecret)
-      .then(({paymentIntent}) => {
-        // Inspect the PaymentIntent `status` to indicate the status of the payment
-        // to your customer.
-        //
-        // Some payment methods will [immediately succeed or fail][0] upon
-        // confirmation, while others will first enter a `processing` state.
-        //
-        // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
-        console.log("Payment status: ", paymentIntent);
-        switch (paymentIntent.status) {
-          case 'succeeded':
-            setMessage('Success! Payment received.');
-            break;
-
-          case 'processing':
-            setMessage("Payment processing. We'll update you when payment is received.");
-            break;
-
-          case 'requires_payment_method':
-            // Redirect your user back to your payment page to attempt collecting
-            // payment again
-            setMessage('Payment failed. Please try another payment method.');
-            break;
-
-          default:
-            setMessage('Something went wrong.');
-            break;
-        }
-      });
-  }, [stripe]);
-
-
-  return message;
+    const checkoutSession = CloudFunctions.httpsCallable("checkoutSession");
+    if (message === null) {
+        checkoutSession({
+            sessionId: sessionIdParam,
+          }).then((res) => {
+            console.log("checkoutSession: ", res);
+            if (res.data.result === "success") {
+                setMessage("payment_status: " + res.data.data.payment_status);
+            } else {
+              console.error("checkoutSession returned result", res);
+              setMessage(JSON.stringify(res));
+            }
+          });
+        };
+    }
+    
+    useEffect(() => {setBreadcrumb([
+        {
+          to: "/",
+          text: "Home",
+          active: false,
+        },
+        {
+          to: "/account/" + userData.currentAccount.id + "/",
+          text: userData.currentAccount.name,
+          active: false,
+        },
+        {
+          to: null,
+          text: title,
+          active: true,
+        },
+      ]);
+      getCheckoutData();}, []);
+  return (
+      <>Payment Status
+      {message !== null && (
+        <Alert severity="info">
+          {message}
+        </Alert>
+      )}</>
+  );
 };
 
 export default PaymentStatus;

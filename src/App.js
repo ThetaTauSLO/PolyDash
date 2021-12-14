@@ -23,6 +23,7 @@ import DeleteUser from './pages/auth/user/DeleteUser';
 import ViewLogs from './pages/auth/user/ViewLogs';
 import Plans from './pages/auth/accounts/Plans';
 import CurrentPlans from './pages/auth/accounts/Plans/currentPlan';
+import PaymentStatus from './pages/auth/accounts/Plans/paymentStatus';
 import NewAccount from './pages/auth/accounts/NewAccount';
 
 
@@ -57,6 +58,7 @@ function App() {
 						<AuthRouter exact path="/account/:accountId/images" component={ImageList} template={AccountTemplate} title="Images" role="*" />
 						<AuthRouter exact path="/account/:accountId/billing/plan" component={Plans} template={AccountTemplate} title="Select Plan" role="admin" allowInactive={true} />
 						<AuthRouter exact path="/account/:accountId/currentPlan" component={CurrentPlans} template={AccountTemplate} title="Current Plan" role="admin" allowInactive={true} />
+						<AuthRouter exact path="/account/:accountId/billing/paymentStatus" component={PaymentStatus} template={AccountTemplate} title="Payment Status" role="admin" allowInactive={true} />
 						<AuthRouter exact path="/account/:accountId/billing/payment-method" component={PaymentMethod} template={AccountTemplate} title="Update Payment Method" role="admin" />
 						<AuthRouter exact path="/account/:accountId/billing/delete" component={DeleteAccount} template={AccountTemplate} title="Delete Account" role="admin" />
 						<AuthRouter exact path="/account/:accountId/users/change/:userId" component={UserRole} template={AccountTemplate} title="Change Role" role="admin" />
