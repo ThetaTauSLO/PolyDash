@@ -175,6 +175,7 @@ const PaymentList = () => {
                         )}
                         </>
                     )}
+                    <p>Invoice is only currently available for recurring purchases.</p>
             </Paper>
         </Stack>
     )

@@ -665,7 +665,9 @@ exports.createSubscription = functions.https.onCall((data, context) => {
       plan = planDoc;
 
       if (!isAllowed) {
-        throw new Error("Permission denied. User Not Allowed To Enroll.");
+        let account_name = account.data().name;
+        let plan_name = plan.data().name;
+        throw new Error("Permission Denied. User [" + account_name + "] missing entitlement to [" + plan_name+ "], [" + data.planId + "]");
       }
       if (taxDocs) {
         taxDocs.forEach((taxRate) => {
@@ -896,7 +898,8 @@ const isInAllowList = (planID, accountID) => {
     });
 };
 
-const updateCheckout = (checkoutObject) => {
+const updateCheckout = (checkoutParent) => {
+  let checkoutObject = checkoutParent.data.object;
   // console.log("updateCheckout checkoutObject: ", checkoutObject);
   console.log("paymentStatus: ", checkoutObject.payment_status);
   console.log("checkout ID: ", checkoutObject.id);
@@ -921,7 +924,11 @@ const updateCheckout = (checkoutObject) => {
         actions.push(
           account.ref.set(
             {
-              subscriptionStatus: checkoutObject.payment_status
+              subscriptionStatus: checkoutObject.payment_status,
+              subscriptionCreated: checkoutParent.created,
+              subscriptionCurrentPeriodStart: checkoutParent.created,
+              subscriptionCurrentPeriodEnd: 575630182800,
+              subscriptionEnded: 0,
             },
             { merge: true }
           )
@@ -1042,7 +1049,7 @@ exports.stripeWebHook = functions.https.onRequest((req, res) => {
       result = updateSubscription(event.data.object);
     }
     if (event.type.indexOf("checkout.") === 0) {
-      result = updateCheckout(event.data.object);
+      result = updateCheckout(event);
     }
     if (result) {
       res.json({ received: true });
@@ -1136,7 +1143,9 @@ return Promise.all([
     plan = planDoc;
 
     if (!isAllowed) {
-        throw new Error("Permission denied. User Not Allowed To Enroll.");
+        let account_name = account.data().name;
+        let plan_name = plan.data().name;
+        throw new Error("Permission Denied. User [" + account_name + "] missing entitlement to [" + plan_name+ "], [" + data.planId + "]");
     }
     if (taxDocs) {
         taxDocs.forEach((taxRate) => {

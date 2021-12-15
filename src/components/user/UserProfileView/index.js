@@ -118,7 +118,7 @@ const UserProfileView = () => {
                                 <Box p={2}><strong>EMAIL VERIFIED</strong></Box>
                             </Grid>
                             <Grid container item xs={12} md={4}>
-                                <Box p={2}>{(context.authUser.user.emailVerified?" Verified":"Unverified email")}</Box>
+                                <Box p={2}>{(context.authUser.user.emailVerified?" Verified":<p style={{ color: 'orange' }}>Unverified email</p>)}</Box>
                             </Grid>
                             <Grid container item xs={12} md={4}>
                                 <Box p={2} style={{marginLeft: "auto", marginRight: "0px",}}>
@@ -136,7 +136,7 @@ const UserProfileView = () => {
                                 <Box p={2}><strong>PHONE</strong></Box>
                             </Grid>
                             <Grid container item xs={12} md={4}>
-                                <Box p={2}>{context.authUser.user.phoneNumber}</Box>
+                                <Box p={2}>{(context.authUser.user.phoneNumber) ? context.authUser.user.phoneNumber : <p style={{ color: 'orange' }}>Record Missing</p> }</Box>
                             </Grid>
                             <Grid container item xs={12} md={4}>
                                 <Box p={2} style={{marginLeft: "auto", marginRight: "0px",}}>
@@ -157,7 +157,7 @@ const UserProfileView = () => {
                                 <Box p={2}><strong>RESUME</strong></Box>
                             </Grid>
                             <Grid container item xs={12} md={4}>
-                                <Box p={2}>{resumeURL}</Box>
+                                <Box p={2}>{(resumeURL) ? resumeURL : <p style={{ color: 'orange' }}>Record Missing</p> }</Box>
                                 <div>
                                 <object data={resumePreviewURL} type="application/pdf" width="100%" height="100%">
                                     <p><a href={resumeURL}>Uploaded Resume</a></p>
