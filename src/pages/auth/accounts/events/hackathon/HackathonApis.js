@@ -1,6 +1,6 @@
 import { images } from "./images.json";
 
-const ListImageApi = (page, pageSize) => {
+const HackathonApi = (page, pageSize) => {
     return new Promise((resolve, reject) => {
         const start = page * pageSize;
         if(start >= 0 && start <= images.length-1){
@@ -12,7 +12,8 @@ const ListImageApi = (page, pageSize) => {
                 const record = {
                     id: i,
                     url: images[i].url,
-                    title: images[i].title
+                    title: images[i].title,
+                    homeURL: images[i].homeURL
                 }
                 records.push(record);
             }
@@ -74,7 +75,7 @@ const DeleteImageApi = (id) => {
 }
 
 export {
-    ListImageApi,
+    HackathonApi,
     CreateImageApi,
     GetImageApi,
     EditImageApi,

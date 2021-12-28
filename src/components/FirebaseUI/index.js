@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { FirebaseAuth } from '../FirebaseAuth/firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
 import Logo from "../Logo";
@@ -51,7 +53,7 @@ const FirebaseUI = () => {
         if(re && re.indexOf('/') === 0){
             localStorage.setItem('re', re);
         }
-    
+
         console.log("FirebaseUI Login Logo Select: ", CalPolyLogo);
         // Configure FirebaseUI.
         uiConfig = {
@@ -59,14 +61,21 @@ const FirebaseUI = () => {
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
                     console.log("authResult: " + JSON.stringify(authResult));
                     console.log("redirectUrl: ", redirectUrl);
-                    console.log("oauthIdToken: " + authResult.credential.idToken);
-                    console.log("oauthAccessToken: " + authResult.credential.accessToken);
-                    if (authResult.credential.accessToken !== undefined) {
+                    if (authResult !== undefined && authResult.credential !== undefined && authResult.credential !== null) {
+                      console.log("oauthIdToken: " + authResult.credential.idToken);
+                      console.log("oauthAccessToken: " + authResult.credential.accessToken);
+                      if (authResult.credential.accessToken !== undefined && authResult.credential.accessToken !== null) {
                         setCookie("msoauthAccessToken", authResult.credential.accessToken, 365);
                         setCookie("msoauthIdToken", authResult.credential.idToken, 365);
+                      }
                     }
+                    else {
+                      console.log("Unable to get accessToken!");
+                    }
+
+
                     // debugger;
-                    
+
                     userSignIn((result) => {
                         if(result){
                             setSignInSuccess(true);
@@ -89,8 +98,6 @@ const FirebaseUI = () => {
             },
             signInSuccessUrl: '/',
             signInOptions: [
-                // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 {
                     provider: "microsoft.com",
@@ -110,14 +117,16 @@ const FirebaseUI = () => {
                         'https://graph.microsoft.com/User.Read',
                         // 'https://graph.microsoft.com/Calendars.ReadWrite.Shared'
                     ]
-                  },
+                },
+              firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
             ]
         };
     }
 
-    
 
-    
+
+
 
     return (
         <>

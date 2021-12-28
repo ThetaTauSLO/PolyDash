@@ -1,15 +1,15 @@
 import React, {useState, useContext, useEffect, useRef } from 'react';
-import { BreadcrumbContext } from '../../../../components/Breadcrumb';
-import { AuthContext } from "../../../../components/FirebaseAuth";
+import { BreadcrumbContext } from '../../../../../components/Breadcrumb';
+import { AuthContext } from "../../../../../components/FirebaseAuth";
 import { formSchema } from './images.json';
 import { Alert, Paper, TextField } from '@mui/material';
-import { EditImageApi, GetImageApi } from './ImagesApis';
+import { EditImageApi, GetImageApi } from './HackathonApis';
 import { useParams } from 'react-router';
-import DataEdit from '../../../../components/DataEdit';
-import Loader from '../../../../components/Loader';
+import DataEdit from '../../../../../components/DataEdit';
+import Loader from '../../../../../components/Loader';
 import { Box } from '@mui/system';
 
-const ImageEdit = () => {
+const HackathonEdit = () => {
     const mountedRef = useRef(true);
 
     const listName = 'images'
@@ -29,9 +29,9 @@ const ImageEdit = () => {
     const titleCase = (str) => {
         let splitStr = str.toLowerCase().split(' ');
         for (let i = 0; i < splitStr.length; i++) {
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
         }
-        return splitStr.join(' '); 
+        return splitStr.join(' ');
     }
 
     const { setBreadcrumb } = useContext(BreadcrumbContext);
@@ -67,7 +67,7 @@ const ImageEdit = () => {
     },[setBreadcrumb, title, listName, userData, imageId]);
 
     useEffect(() => {
-        return () => { 
+        return () => {
             mountedRef.current = false
         }
     },[]);
@@ -125,4 +125,4 @@ const ImageEdit = () => {
 
 }
 
-export default ImageEdit;
+export default HackathonEdit;

@@ -1,24 +1,25 @@
 {
     "images": [
         {
-            "url": "https://calpolyhkn.com/assets/img/campus_above.jpg",
-            "title": "Cal Poly HKN"
+            "url": "https://calpolyhkn.com/assets/img/favicons/apple-touch-icon.png",
+            "title": "PolyWare 2022",
+            "homeURL": "https://hack.calpolyhkn.com"
         }
     ],
     "listResponse": [
         {
-            "name": "Image",
+            "name": "Event",
             "field": "image",
             "style": {"width": "20%"}
         },
         {
-            "name": "Image Title",
+            "name": "Event Name",
             "field": "title",
             "style": {"width": "20%"}
         },
         {
-            "name": "Image URL",
-            "field": "url",
+            "name": "Event Website",
+            "field": "homeURL",
             "style": {"width": "45%"}
         },
         {

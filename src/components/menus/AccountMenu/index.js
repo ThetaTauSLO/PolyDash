@@ -22,13 +22,13 @@ const AccountMenu = () => {
 
     return (
         <List>
-            <Link to={'/account/'+accountId+'/'} style={{textDecoration:'none'}}>
-                <ListItem button key="HKN App">
+            <Link to={'/account/'+accountId+'/hack2022'} style={{textDecoration:'none'}}>
+                <ListItem button key="HKN Apps">
                     <ListItemIcon><DashboardIcon /></ListItemIcon>
-                    <ListItemText primary={<Typography color="textPrimary">HKN App</Typography>} />
+                    <ListItemText primary={<Typography color="textPrimary">HKN Apps</Typography>} />
                 </ListItem>
             </Link>
-            {userData.currentAccount.role === 'admin' && 
+            {userData.currentAccount.role === 'admin' &&
             <>
                 <Divider />
                 <Link to={'/account/'+accountId+'/users'} style={{textDecoration:'none'}}>

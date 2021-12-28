@@ -38,9 +38,9 @@ import Invite from './pages/auth/user/Invite';
 import PaymentList from './pages/auth/accounts/PaymentList';
 import PaymentMethod from './pages/auth/accounts/PaymentMethod';
 import DeleteAccount from './pages/auth/accounts/DeleteAccount';
-import ImageList from './pages/auth/accounts/images/ImageList';
-import ImageCreate from './pages/auth/accounts/images/ImageCreate';
-import ImageEdit from './pages/auth/accounts/images/ImageEdit';
+import HackathonList from './pages/auth/accounts/events/hackathon/HackathonList';
+import HackathonRegister from './pages/auth/accounts/events/hackathon/HackathonRegister';
+import HackathonEdit from './pages/auth/accounts/events/hackathon/HackathonEdit';
 const stripeConfig = JSON.parse(process.env.REACT_APP_STRIPE).stripeConfig;
 
 const stripePromise = loadStripe(stripeConfig.public_api_key);
@@ -53,9 +53,9 @@ function App() {
 				<Router>
 					<Switch>
 						<AuthRouter exact path="/" component={Home} template={AppTemplate} title="My Accounts" />
-						<AuthRouter exact path="/account/:accountId/images/edit/:imageId" component={ImageEdit} template={AccountTemplate} title="Edit Image" role="*" />
-						<AuthRouter exact path="/account/:accountId/images/create" component={ImageCreate} template={AccountTemplate} title="Create Image" role="*" />
-						<AuthRouter exact path="/account/:accountId/images" component={ImageList} template={AccountTemplate} title="Images" role="*" />
+            <AuthRouter exact path="/account/:accountId/hack2022/edit/:imageId" component={HackathonEdit} template={AccountTemplate} title="Update Hackathon Registration" role="*" />
+            <AuthRouter exact path="/account/:accountId/hack2022/create" component={HackathonRegister} template={AccountTemplate} title="Hackathon Registration" role="*" />
+						<AuthRouter exact path="/account/:accountId/hack2022" component={HackathonList} template={AccountTemplate} title="Hackathon" role="*" />
 						<AuthRouter exact path="/account/:accountId/billing/plan" component={Plans} template={AccountTemplate} title="Select Plan" role="admin" allowInactive={true} />
 						<AuthRouter exact path="/account/:accountId/currentPlan" component={CurrentPlans} template={AccountTemplate} title="Current Plan" role="admin" allowInactive={true} />
 						<AuthRouter exact path="/account/:accountId/billing/paymentStatus" component={PaymentStatus} template={AccountTemplate} title="Payment Status" role="admin" allowInactive={true} />

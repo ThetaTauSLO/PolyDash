@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import DataList from '../../../../components/DataList';
-import { AuthContext } from "../../../../components/FirebaseAuth";
-import { BreadcrumbContext } from '../../../../components/Breadcrumb';
+import DataList from '../../../../../components/DataList';
+import { AuthContext } from "../../../../../components/FirebaseAuth";
+import { BreadcrumbContext } from '../../../../../components/Breadcrumb';
 import { useHistory } from "react-router-dom";
-import { ListImageApi, DeleteImageApi } from './ImagesApis';
+import { HackathonApi, DeleteImageApi } from './HackathonApis';
 import { listResponse } from './images.json';
 import { Stack, Button } from '@mui/material';
-import DataDelete from "../../../../components/DataDelete";
+import DataDelete from "../../../../../components/DataDelete";
 
 const ActionButtons = ({id, handleDeletion}) => {
     const history = useHistory();
     const { userData } = useContext(AuthContext);
-    const url = '/account/'+userData.currentAccount.id+'/images/edit/'+id;
+    const url = '/account/'+userData.currentAccount.id+'/hack2022/edit/'+id;
 
     return (
         <Stack direction="row" spacing={1} mt={2}>
@@ -21,8 +21,8 @@ const ActionButtons = ({id, handleDeletion}) => {
     )
 }
 
-const ImageList = () => {
-    const title = "Images";
+const HackathonList = () => {
+    const title = "Hackathon Applications";
     const { userData } = useContext(AuthContext);
     const { setBreadcrumb } = useContext(BreadcrumbContext);
     const history = useHistory();
@@ -31,7 +31,7 @@ const ImageList = () => {
     const handleFetch = useCallback((page, pageSize) => {
         return new Promise((resolve, reject) => {
             // apply custom filter here if you wish to pass additional parameters to the api calls
-            ListImageApi(page, pageSize).then(images => {
+            HackathonApi(page, pageSize).then(images => {
                 const handleDeletion = (id) => {
                     DeleteImageApi(id).then(() => {
                         setRefreshCount(refreshCount+1);
@@ -45,6 +45,7 @@ const ImageList = () => {
                         id: images.data[i].id,
                         url: images.data[i].url,
                         title: images.data[i].title,
+                        homeURL: images.data[i].homeURL,
                         image: <img alt={images.data[i].title} src={images.data[i].url} width={200} />,
                         action: <ActionButtons id={images.data[i].id} handleDeletion={handleDeletion} />
                     }
@@ -85,9 +86,9 @@ const ImageList = () => {
             {/* <Alert severity="info">
                 This is a demo
             </Alert> */}
-            <div style={{marginLeft: "auto"}}>
+            <div style={{marginRight: "auto"}}>
                 <Stack direction="row" spacing={1}>
-                    <Button variant="contained" onClick={() => history.push("/account/"+userData.currentAccount.id+"/images/create")} >Create Image Link</Button>
+                    <Button variant="contained" onClick={() => history.push("/account/"+userData.currentAccount.id+"/hack2022/create")} >Apply For Event</Button>
                 </Stack>
             </div>
             <DataList handleFetch={handleFetch} schema={listResponse} />
@@ -95,4 +96,4 @@ const ImageList = () => {
     )
 }
 
-export default ImageList;
+export default HackathonList;
