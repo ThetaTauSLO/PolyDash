@@ -1,20 +1,19 @@
 import React from "react";
-import FirebaseUI from '../../../components/FirebaseUI';
+import FirebaseUIAlt from '../../../components/FirebaseUI/alternate';
 import Logo from "../../../components/Logo";
 import {Alert, AlertTitle, Container, Divider, Grid, Tooltip } from "@mui/material";
 
-const SignIn = () => {
+const SignInOther = () => {
 
     return (
         <Container>
             <div className="text-center">
             <Logo size="80px" />
-            <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
+            <h2 className="h3 mb-3 font-weight-normal">Please sign in (External Partners)</h2>
             <div className="card-body">
-                <FirebaseUI />
+            <FirebaseUIAlt />
             </div>
-          <p>Not a Cal Poly affiliated member? <a href="signinAlt">Click here.</a></p>
-
+            <p>Cal Poly affiliated member? <a href="signin">Click here.</a></p>
 
         </div>
         <Divider sx={{ m: 2 }}/>
@@ -77,4 +76,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn;
+export default SignInOther;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { FirebaseAuth } from '../FirebaseAuth/firebase';
+import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
@@ -36,7 +37,7 @@ function checkCookieEnabled() {
 
     return ret;
 }
-const FirebaseUI = () => {
+const FirebaseUIAlt = () => {
     const [cookieError, setCookieError] = useState(false);
     const [signInSuccess, setSignInSuccess] = useState(null);
     const params = (new URL(document.location)).searchParams;
@@ -53,8 +54,8 @@ const FirebaseUI = () => {
             localStorage.setItem('re', re);
         }
 
-        console.log("FirebaseUI Login Logo Select: ", CalPolyLogo);
-        // Configure FirebaseUI.
+        console.log("FirebaseUIAlt Login Logo Select: ", CalPolyLogo);
+        // Configure FirebaseUIAlt.
         uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
@@ -108,37 +109,22 @@ const FirebaseUI = () => {
             signInSuccessUrl: '/',
             signInOptions: [
                 // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                {
-                    provider: "microsoft.com",
-                    customParameters: {
-                        // prompt: "consent",
-                        tenant: "1b0d02db-fc9e-4495-9537-1d379cca2ae7",
-                    },
-                    fullLabel: "Sign in with Cal Poly SSO",
-                    iconUrl: CalPolyLogo,
-                    scopes: [
-                        'https://graph.microsoft.com/email',
-                        'https://graph.microsoft.com/Files.ReadWrite',
-                        // 'https://graph.microsoft.com/Files.ReadWrite.AppFolder', // Doesn't officially work with 'business' type. Have issues with 404 Not Found response on resource for some tenants.
-                        // 'https://graph.microsoft.com/offline_access',
-                        'https://graph.microsoft.com/openid',
-                        'https://graph.microsoft.com/profile',
-                        'https://graph.microsoft.com/User.Read',
-                        // 'https://graph.microsoft.com/Calendars.ReadWrite.Shared'
-                    ]
-                },
-              // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-              // {
-              //   provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-              //   scopes: [
-              //     // "https://www.googleapis.com/auth/calendar.events.readonly",
+              firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              {
+                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                scopes: [
+                  // "https://www.googleapis.com/auth/calendar.events.readonly",
 
-              //   ],
-              // },
+                ],
+              },
 
             ]
         };
     }
+
+
+
+
 
     return (
         <>
@@ -186,4 +172,4 @@ const FirebaseUI = () => {
     );
 }
 
-export default FirebaseUI;
+export default FirebaseUIAlt;

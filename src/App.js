@@ -9,6 +9,7 @@ import AccountTemplate from './components/templates/AccountTemplate';
 import AuthRouter from './components/routers/AuthRouter';
 
 import SignIn from './pages/public/SignIn';
+import SignInOther from './pages/public/SignInOther';
 import Home from './pages/auth/Home';
 import PageNotFound from './pages/public/PageNotFound';
 import AppTemplate from './components/templates/AppTemplate';
@@ -78,6 +79,7 @@ function App() {
 						<AuthRouter exact path="/user/profile/delete" component={DeleteUser} template={AppTemplate} title="Delete Your Account" />
 						<AuthRouter exact path="/user/log" component={ViewLogs} template={AppTemplate} title="View Activity Logs" />
 						<PublicRouter exact path="/signin" component={SignIn} template={PublicTemplate} title="Sign In" />
+            <PublicRouter exact path="/signinAlt" component={SignInOther} template={PublicTemplate} title="Sign In (Alternate)" />
 						<PublicRouter component={PageNotFound} template={PublicTemplate} title="Page Not Found" />
 					</Switch>
 				</Router>
