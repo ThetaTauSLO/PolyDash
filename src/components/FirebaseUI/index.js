@@ -7,7 +7,7 @@ import 'firebase/compat/auth';
 import { userSignIn } from '../../libs/user';
 import Loader from "../Loader";
 import Logo from "../Logo";
-import { setCookie } from "../CookieHelper";
+import { setCookie, deleteCookie } from "../CookieHelper";
 import { default as CalPolyLogo } from "../Logo/calpoly_logo.svg"
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -62,12 +62,19 @@ const FirebaseUI = () => {
                     console.log("authResult: " + JSON.stringify(authResult));
                     console.log("redirectUrl: ", redirectUrl);
                     if (authResult !== undefined && authResult.credential !== undefined && authResult.credential !== null) {
+                      console.log("signInMethod: ", authResult.credential.signInMethod);
                       console.log("oauthIdToken: " + authResult.credential.idToken);
                       console.log("oauthAccessToken: " + authResult.credential.accessToken);
-                      if (authResult.credential.accessToken !== undefined && authResult.credential.accessToken !== null) {
+                      if (authResult.credential.accessToken !== undefined && authResult.credential.accessToken !== null && authResult.credential.signInMethod === "microsoft.com") {
                         setCookie("msoauthAccessToken", authResult.credential.accessToken, 365);
                         setCookie("msoauthIdToken", authResult.credential.idToken, 365);
                       }
+                      else {
+                        console.log("No valid microsoft oauth credential. Clearing existing microsoft oauth credentials.");
+                        deleteCookie("msoauthAccessToken");
+                        deleteCookie("msoauthIdToken");
+                      }
+                      setCookie("signInMethod", authResult.credential.signInMethod, 365);
                     }
                     else {
                       console.log("Unable to get accessToken!");
@@ -87,15 +94,18 @@ const FirebaseUI = () => {
                                 window.location = '/';
                             }
                         }else{
+                          console.warn("Sign in success set to FALSE");
                             setSignInSuccess(false);
                         }
                     })
+                console.warn("Sign in returned FALSE to callback");
                     return false;
                 },
                 uiShown: function(){
                     document.getElementById('loader').style.display = 'none';
                 }
             },
+            signInFlow: 'popup',
             signInSuccessUrl: '/',
             signInOptions: [
                 // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -119,7 +129,14 @@ const FirebaseUI = () => {
                     ]
                 },
               firebase.auth.EmailAuthProvider.PROVIDER_ID,
-              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+              {
+                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                scopes: [
+                  // "https://www.googleapis.com/auth/calendar.events.readonly",
+
+                ],
+              },
+
             ]
         };
     }

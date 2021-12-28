@@ -4,7 +4,7 @@ export const setCookie = (cname, cvalue, exdays) => {
     let expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
-  
+
 export const getCookie = (cname) => {
     let name = cname + "=";
     let ca = document.cookie.split(';');
@@ -19,7 +19,7 @@ export const getCookie = (cname) => {
     }
     return "";
   }
-  
+
 export const checkCookie = () => {
     let user = getCookie("username");
     if (user !== "") {
@@ -31,3 +31,7 @@ export const checkCookie = () => {
       }
     }
   }
+
+export const deleteCookie = (cname) => {
+  setCookie(cname, "", -1);
+}

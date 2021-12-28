@@ -14,7 +14,7 @@ const SignIn = () => {
                 <FirebaseUI />
             </div>
 
-            
+
         </div>
         <Divider sx={{ m: 2 }}/>
         <Alert severity="info">
@@ -38,7 +38,7 @@ const SignIn = () => {
                         </p>
                     </Grid>
                 </Grid>
-                
+
                 <Grid container>
                     <Grid item xs>
                         <p align="left">
@@ -65,14 +65,14 @@ const SignIn = () => {
                         </p>
                     </Grid>
                 </Grid> */}
-            </Grid>      
+            </Grid>
         </Alert>
         <Divider sx={{ m: 2 }}/>
-        <Tooltip interactive title={<a href="https://github.com/EnumC/CalPolyHKN/tree/dashboard" style={{color:"#ffffff"}}>https://github.com/EnumC/CalPolyHKN/tree/dashboard</a>} enterDelay={0} leaveDelay={5000}>
+        <Tooltip title={<a href="https://github.com/EnumC/CalPolyHKN/tree/dashboard" style={{color:"#ffffff"}}>https://github.com/EnumC/CalPolyHKN/tree/dashboard</a>} enterDelay={0} leaveDelay={5000}>
         <u>Source Code</u>
         </Tooltip>
         </Container>
-        
+
     )
 }
 

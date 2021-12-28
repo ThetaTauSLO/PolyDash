@@ -12,7 +12,7 @@ export const getProfileBase64 = async (token) => {
         return avatar;
     }
     catch (error) {
-        console.error(Object.keys(error), error.message); 
+        console.error(Object.keys(error), error.message);
     }
 }
 
@@ -25,7 +25,7 @@ export const getUserDetail = async (token) => {
         return response;
     }
     catch (error) {
-        console.error(Object.keys(error), error.message); 
+        console.error(Object.keys(error), error.message);
         return error.response;
     }
 }
@@ -33,10 +33,15 @@ export const getUserDetail = async (token) => {
 export const getAccessToken = () => {
     // return a promise with accessToken string
     let aToken = getCookie("msoauthAccessToken");
+    let signInMethod = getCookie("signInMethod");
     // console.log("getAccessToken: ", aToken);
 
-     // Validating Microsoft access token and reauthenticate if 
+     // Validating Microsoft access token and reauthenticate if
      // no longer valid.
+     if (signInMethod !== "microsoft.com") {
+       return "";
+     }
+
      (async () => {
         let validateResult = await getUserDetail(aToken);
         // console.log("getAccessToken validate res: ", validateResult);
@@ -58,11 +63,11 @@ export const getAccessToken = () => {
                     });
                 }
             }
-            
+
         }
         })();
-    
-    
+
+
 
     return aToken;
   }
