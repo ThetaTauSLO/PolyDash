@@ -38,7 +38,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "function": "cd functions && npm install && firebase deploy --only functions",
-    "auth-deploy": "firebase deploy --only hosting"
+    "auth-deploy": "firebase deploy --only hosting",
+    "init": "npm install -g firebase-tools && firebase login"
   },
   "eslintConfig": {
     "extends": "react-app"

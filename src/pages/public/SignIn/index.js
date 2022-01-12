@@ -69,7 +69,7 @@ const SignIn = () => {
             </Grid>
         </Alert>
         <Divider sx={{ m: 2 }}/>
-        <Tooltip title={<a href="https://github.com/EnumC/CalPolyHKN/tree/dashboard" style={{color:"#ffffff"}}>https://github.com/EnumC/CalPolyHKN/tree/dashboard</a>} enterDelay={0} leaveDelay={5000}>
+        <Tooltip title={<a href="https://github.com/EnumC/PolyDash/tree/hkn" style={{color:"#ffffff"}}>https://github.com/EnumC/PolyDash/tree/hkn</a>} enterDelay={0} leaveDelay={5000}>
         <u>Source Code</u>
         </Tooltip>
         </Container>
