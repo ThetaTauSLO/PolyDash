@@ -123,7 +123,7 @@ const Layout = ({drawerMenu, toolbarChildren, toolBarMenu, children}) => {
                 <div style={{display: 'inline-flex', paddingRight: '20px'}}>
                     <Logo />
                 </div>
-                <h2>HKN-EP</h2>
+                <h2>THETATAU-SLO</h2>
             </div>}
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}

@@ -1,5 +1,5 @@
 import React from "react";
-import mainLogo from "./hkn.png"
+import mainLogo from "./thetatau.jpg";
 import { Avatar, Typography } from '@mui/material';
 
 const Logo = ({size, text}) => {
@@ -10,7 +10,7 @@ const Logo = ({size, text}) => {
             alignItems: 'center',
             flexWrap: 'wrap',
         }}>
-            <Avatar alt="IEEE-HKN Epsilon Phi Logo" src={mainLogo} sx={{ width: {fontSize}, height: {fontSize} }}/>
+            <Avatar alt="Theta Tau SLO Epsilon Phi Logo" src={mainLogo} sx={{ width: {fontSize}, height: {fontSize} }}/>
             {(text) ? <Typography variant="h6" sx={{ ml: 2 }}>{text}</Typography> : ""}
             
         </div>

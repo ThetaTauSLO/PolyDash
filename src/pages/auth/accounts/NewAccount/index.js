@@ -63,7 +63,7 @@ const NewAccount = () => {
                   )}
                   {console.log("AuthInfo", context.authUser.user)}
                   <Box p={1}>
-                    {context.authUser.user.displayName}, Welcome to the IEEE-HKN
+                    {context.authUser.user.displayName}, Welcome to the Theta Tau SLO
                     New Member Portal.
                   </Box>
                   {/* <Box p={1}>

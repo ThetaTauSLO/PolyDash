@@ -19,7 +19,7 @@ const SignIn = () => {
         </div>
         <Divider sx={{ m: 2 }}/>
         <Alert severity="info">
-        <AlertTitle>Getting Started With Cal Poly HKN</AlertTitle>
+        <AlertTitle>Getting Started With Theta Tau SLO</AlertTitle>
             Log in using your Cal Poly credentials. Your authentication keys are stored locally.
         </Alert>
         <Divider sx={{ m: 2 }}/>
@@ -69,7 +69,7 @@ const SignIn = () => {
             </Grid>
         </Alert>
         <Divider sx={{ m: 2 }}/>
-        <Tooltip title={<a href="https://github.com/EnumC/PolyDash/tree/hkn" style={{color:"#ffffff"}}>https://github.com/EnumC/PolyDash/tree/hkn</a>} enterDelay={0} leaveDelay={5000}>
+        <Tooltip title={<a href="https://github.com/ThetaTauSLO/PolyDash" style={{color:"#ffffff"}}>https://github.com/ThetaTauSLO/PolyDash</a>} enterDelay={0} leaveDelay={5000}>
         <u>Source Code</u>
         </Tooltip>
         </Container>
